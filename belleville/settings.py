@@ -21,7 +21,7 @@ DATABASE_PORT = ''             # Set to empty string for default. Not used with 
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/New_York'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -60,7 +60,7 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',    
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
@@ -74,11 +74,31 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     'django.contrib.auth',
+    'django.contrib.admin',    
     'django.contrib.contenttypes',
+    'django.contrib.flatpages',
+    'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'authors',
+    #'blogging',
+    # Third party apps:
+    'south'
 )
+
+AUTH_PROFILE_MODULE = 'author.Author'
+
 try:
     from local_settings import *
 except ImportError:
+    pass
+
+try:
+    MIDDLEWARE_CLASSES += LOCAL_MIDDLEWARE_CLASSES
+except NameError:
+    pass
+
+try:
+    INSTALLED_APPS += LOCAL_INSTALLED_APPS
+except NameError:
     pass
