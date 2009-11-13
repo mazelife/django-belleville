@@ -6,10 +6,16 @@ class Author(models.Model):
     """A model of an author (extends contrib.auth.models.User)."""
     user = models.ForeignKey(User, unique=True)
     slug = models.SlugField(_("Slug"),
-        help_text=_("Slug for public Author profile url")
+        help_text=_("Slug for the public Author profile url")
     )
     bio = models.TextField(_("Bio"), blank=True)    
     photo = models.ImageField(_("Photo"),
         blank=True,
         upload_to="uploads/author_photos"
     )
+    
+    def __unicode__(self):
+        name = author.user.get_full_name()
+        if name == '':
+            return author.user.username
+        return name
