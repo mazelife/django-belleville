@@ -10,5 +10,6 @@ class Author(models.Model):
     )
     bio = models.TextField(_("Bio"), blank=True)    
     photo = models.ImageField(_("Photo"),
+        blank=True,
         upload_to="uploads/author_photos"
     )
