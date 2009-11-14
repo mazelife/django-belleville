@@ -16,6 +16,11 @@ class Author(models.Model):
     
     def __unicode__(self):
         name = author.user.get_full_name()
+        # If name fields are empty, fallback to username, which is required:
         if name == '':
             return author.user.username
         return name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ("authors:author_detail", (), {'slug': self.slug})        

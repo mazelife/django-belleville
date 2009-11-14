@@ -1,23 +1,26 @@
-"""
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
-
-Replace these with more appropriate tests for your application.
-"""
-
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
+from models import Author
+
+class AuthorTest(TestCase):
+
+    def test_verify_author_detail_pages(self):
         """
-        Tests that 1 + 1 always equals 2.
+        Verify that each author has a detail page and that the author is 
+        contained within the page's context.
         """
-        self.failUnlessEqual(1 + 1, 2)
-
-__test__ = {"doctest": """
-Another way to test that 1 + 1 is equal to 2.
-
->>> 1 + 1 == 2
-True
-"""}
-
+        for author in Author.objects.all():
+            response = self.client.get(author.get_absolute_url())
+            self.assertTrue(response.status_code == 200)
+            self.failUnlessEqual(response.context['author'], author)
+    
+    def test_author_listing(self):
+        """
+        Verify that the author listing page contains all author names within the
+        page's context.
+        """
+        response = self.client.get(reverse("authors:author_list"))
+        self.failUnlessEqual(response.status_code, 200)
+        for author in Author.objects.all():
+            self.AssertTrue(author in response.context['author_objects'])
