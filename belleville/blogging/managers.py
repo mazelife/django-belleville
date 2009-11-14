@@ -12,7 +12,8 @@ class BloggingEntryManager(models.Manager):
         """
         A tumblelog entry is published if its status is in the 
         PUBLISHED_ENTRY_STATES list in BloggingSettings (which can be overriden
-        in the main settings file by setting BLOGGING_PUBLISHED_ENTRY_STATES).
+        in the main settings file by setting BLOGGING_PUBLISHED_ENTRY_STATES) 
+        the pub_date attribute is not in the future.
         """
         return self.get_query_set().filter(
                 status__in=BloggingSettings.PUBLISHED_ENTRY_STATES
