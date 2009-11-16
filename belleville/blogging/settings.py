@@ -1,8 +1,8 @@
 class BloggingSettings:
     """ 
-    This class contains settings for articles. Any property here can be 
-    overriden with a value of the same name beging set in the django project
-    settings (Just perface it with BLOGGING_).
+    This class contains settings for blog or tumblelog entries. Any property
+     here can be overriden with a value of the same name beging set in the 
+     main django project settings.py file (Just perface it with BLOGGING_).
     """
 
     # Workflow states:
@@ -30,7 +30,7 @@ class BloggingSettings:
 from django.conf import settings as _settings
 
 # If a BloggingSettings propoerty is set in global project settings, override 
-#the default setting with it:
+#the default setting in this file with it:
 props = [("BLOGGING_" + p, p) for p in BloggingSettings.__dict__.keys() if not \
     p.startswith("__") and not callable(getattr(BloggingSettings, p)) and \ 
     type(getattr(BloggingSettings, p)) != property]

@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 from settings import BloggingSettings
 from managers import BloggingEntryManager
@@ -23,8 +24,10 @@ class TumblelogEntry(models.Model):
         default=BloggingSettings.DEFAULT_PUB_STATE
     )
     pub_date = models.DateTimeField(_(u"Publication Date"), 
-        help_text=_("Dates in the future will not appear on the site until the \
-        date is reached"),
+        help_text=_((
+            "Dates in the future will not appear on the "
+            "site until the date is reached"
+        )),
         default=datetime.now()
     )
     post_to_twitter = models.BooleanField(_("Post to Twitter"),
@@ -48,4 +51,58 @@ class TumblelogEntry(models.Model):
     
     def post_to_twitter(self):
         raise NotImplementedError, "Coming soon..."
+
+class Entry(models.Model):
+    """A model of a blog entry"""
+    pub_date = models.DateTimeField(_(u"Publication Date"), 
+        help_text=_((
+            "Dates in the future will not appear on the "
+            "site until the date is reached"
+        )),
+        default=datetime.now()
+    )
+    slug = models.SlugField(_(u"Slug"), unique_for_date='pub_date')
+    headline = models.CharField(_(u"Headline"), max_length=255)
+    intro = models.TextField(_(u"Intro"), help_text=_("Above the fold."))
+    body = models.TextField(_(u"Body"), 
+        blank=True, 
+        help_text=_("Below the fold.")
+    )
+    author = models.ForeignKey(Author, related_name="simpleblog_entries")
+    status = models.CharField(
+        max_length=255, 
+        choices=BloggingSettings.ENTRY_STATES
+    )
+    allow_comments = models.BooleanField(_(u"Allow Comments?"), 
+        default=BloggingSettings.COMMENTS_ALLOWED
+    )
+    objects = models.Manager()
+    published_objects = BloggingEntryManager()
     
+    class Meta:
+        verbose_name = "blog entry"
+        verbose_name_plural = 'blog entries'
+        ordering = ('-pub_date',)
+        get_latest_by = 'pub_date'
+
+    def __unicode__(self):
+        return "%s (%s)" % (
+            self.headline, 
+            self.pub_date.strftime("%h %d, %Y %H:%M %p")
+        )
+    
+    @models.permalink
+    def get_absolute_url(self):
+        return ("simpleblog:entry_detail", (), {
+            'year': self.pub_date.year, 
+            'month': self.pub_date.month, 
+            'day': self.pub_date.day, 
+            'slug': self.slug
+        })
+        
+    @property
+    def comments_enabled(self):
+        if not self.allow_comments:
+            return False
+        delta = datetime.datetime.now() - self.pub_date
+        return delta.days < BlogSettings.DAYS_COMMENTS_OPEN  
