@@ -3,6 +3,11 @@ class BloggingSettings:
     This class contains settings for blog or tumblelog entries. Any property
      here can be overriden with a value of the same name beging set in the 
      main django project settings.py file (Just perface it with BLOGGING_).
+     
+     To override the COMMENTS_ALLOWED perference here, place the following
+     in your setting.py:
+     
+     BLOGGING_COMMENTS_ALLOWED = True
     """
 
     # Workflow states:
@@ -11,13 +16,7 @@ class BloggingSettings:
         ('published', "Published")
     )    
     DEFAULT_PUB_STATE = 'draft'
-    PUBLISHED_ENTRY_STATES = ('published',)
-    
-    # Number of Blog or Tumblelog entries on index page:
-    # (Set to "None" if you do not wish to paginate entries)
-    PAGINATE_BLOG_INDEX_AT = 10
-    PAGINATE_TUMBLELOG_INDEX_AT = 20
-    
+    PUBLISHED_ENTRY_STATES = ('published',)    
     #TTL used for convinenece functions which allow model single-property lookups by key
     SPEEDY_LOOKUP_TTL = 60 * 20 #...in seconds
     

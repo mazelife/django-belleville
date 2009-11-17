@@ -15,10 +15,10 @@ class Author(models.Model):
     )
     
     def __unicode__(self):
-        name = author.user.get_full_name()
+        name = self.user.get_full_name()
         # If name fields are empty, fallback to username, which is required:
         if name == '':
-            return author.user.username
+            return self.user.username
         return name
 
     @models.permalink
