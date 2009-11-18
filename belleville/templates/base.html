@@ -1,0 +1,21 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>{%block title%}{{site_preferences.site_title}}{%endblock%}</title>
+    <link rel="stylesheet" href="{{MEDIA_URL}}styles/reset.css" type="text/css" media="all">
+    <script src="{{MEDIA_URL}}scripts/jquery.js" type="text/javascript"></script>
+    {%block head%}{%endblock%}
+</head>
+<body>
+<h2 id="logo">{{site_preferences.site_title}}</h2>
+<ul id="breadcrumb">{%block breadcrumb%}{%for url, title in breadcrumb%}
+    {%if forloop.last%}
+    <li class="last">{{title}}</li>
+    {%else%}
+    <li><a href="{{url}}">{{title}}</a></li>
+    {%endif%}
+{%endfor%}{%endblock%}</ul>
+{%block body%}{%endblock%}
+</body>
+</html>

@@ -3,16 +3,17 @@ from django.views.generic import list_detail
 
 from models import Author
 
-from belleville.utils import annotate
+from project_utils import annotate
 from utils import get_cached_author_name
 
 @annotate(breadcrumb=u"Authors")
 def author_list(request):
     """A view of all authors"""
+    authors = Author.objects.all()
     return list_detail.object_list(request,
-        queryset = Author.objects.all(),
+        queryset = authors,
         template_name = "authors/author_list.html",
-        template_object_name = "author"
+        template_object_name = "author",
     )
 
 @annotate(breadcrumb=get_cached_author_name)

@@ -64,12 +64,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "context_processors.site_preferences"
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+
+TEMPLATE_CONTEXT_PROCESSORS = TEMPLATE_CONTEXT_PROCESSORS + (
+    "context_processors.site_preferences",
+    "context_processors.breadcrumb"
 )
 
 ROOT_URLCONF = 'belleville.urls'
@@ -105,7 +104,7 @@ except ImportError:
 try:
     MIDDLEWARE_CLASSES += LOCAL_MIDDLEWARE_CLASSES
 except NameError:
-    pass
+    pass    
 
 try:
     INSTALLED_APPS += LOCAL_INSTALLED_APPS

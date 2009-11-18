@@ -14,14 +14,14 @@ def get_cached_author_name(slug=None):
     """
     cache_key = 'authors_%s' % slug
     name = cache.get(cache_key)
-    if not title:
+    if not name:
         cache.set(
             cache_key, 
             Author.objects.get(slug=slug).__unicode__(), 
             SPEEDY_LOOKUP_TTL
         )
         name = cache.get(cache_key)
-        if not title:
+        if not name:
             raise CacheError("Author name could not be cached. Verify that the cache is working.")
     return name
 
