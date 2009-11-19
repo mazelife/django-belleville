@@ -12,3 +12,21 @@ def annotate(**kwargs):
             setattr(fn, property, value)
         return fn
     return _wrapped_view_func
+
+class CacheError(Exception):
+    """
+    An exception which will be raised when Django's low-level cache framework
+    doesn't seem to work (probably becuase it's not configured by the user)."""
+    # Fixme: let the user they need to turn caching on
+    pass
+
+def get_page(request, param_name="page"):
+    """
+    A utility to get the page number from a request 
+    object.
+    """
+    page = request.GET.get(param_name, '1')
+    if page.isdigit():
+        return int(page)
+    return 1
+    

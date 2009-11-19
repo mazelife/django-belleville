@@ -23,4 +23,4 @@ class Author(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("authors:author_detail", (), {'slug': self.slug})        
+        return ("authors:detail", (), {'slug': self.slug})        

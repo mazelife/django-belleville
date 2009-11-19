@@ -89,6 +89,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'site_preferences',
     'authors',
+    'blogging',
     #'blogging',
     # Third party apps:
     'south'

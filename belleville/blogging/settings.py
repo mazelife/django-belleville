@@ -31,7 +31,7 @@ from django.conf import settings as _settings
 # If a BloggingSettings propoerty is set in global project settings, override 
 #the default setting in this file with it:
 props = [("BLOGGING_" + p, p) for p in BloggingSettings.__dict__.keys() if not \
-    p.startswith("__") and not callable(getattr(BloggingSettings, p)) and \ 
+    p.startswith("__") and not callable(getattr(BloggingSettings, p)) and \
     type(getattr(BloggingSettings, p)) != property]
 for global_prop, local_prop in props:
     if hasattr(_settings, global_prop):

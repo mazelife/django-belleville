@@ -1,0 +1,14 @@
+[
+    {
+        "pk": 1, 
+        "model": "site_preferences.preference", 
+        "fields": {
+            "blog_entries_per_page": 10, 
+            "tumblelog_entries_per_page": 20, 
+            "tumblelog_title": "My Tumblelog", 
+            "site": 1, 
+            "site_title": "Belleville", 
+            "blog_title": "My Blog"
+        }
+    }
+]

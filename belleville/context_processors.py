@@ -4,7 +4,7 @@ from django.core import urlresolvers
 from django.http import Http404
 from django.utils.http import urlquote
 
-SITE_PREFS_CACHE = {} # FIXME: This should use the low-level caching framework.
+from site_preferences.utils import get_cached_site_prefs
 
 def site_preferences(request):
     """
@@ -12,13 +12,7 @@ def site_preferences(request):
     current site (e.g. site title, blog and tumblelog settings). To avoid a
     DB lookup for every request, we'll cache site preferences by site ID.
     """
-    site = Site.objects.get_current()
-    try:
-        site_prefs = SITE_PREFS_CACHE[site.id]
-    except KeyError:
-        site_prefs = site.preference
-        SITE_PREFS_CACHE[site.id] = site_prefs
-    return {'site_preferences': site_prefs}
+    return {'site_preferences': get_cached_site_prefs()}
 
 def breadcrumb(request):
     """

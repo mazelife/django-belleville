@@ -1,6 +1,5 @@
 from django.core.cache import cache
 
-from project_utils import CacheError
 from models import Author
 
 try:
@@ -25,3 +24,6 @@ def get_cached_author_name(slug=None):
         if not name:
             raise CacheError("Author name could not be cached. Verify that the cache is working.")
     return name
+
+class CacheError(Exception):
+    pass

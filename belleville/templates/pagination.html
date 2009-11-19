@@ -1,0 +1,12 @@
+{%comment%}
+This snippet can be used for all generic views which provide pagination.
+{%endcomment%}
+{%if is_paginated%}
+<div class="pagination">
+    <span class="step-links">
+        {% if has_previous %}<a class="previous-page" href="?page={{previous}}">previous</a>{% endif %}
+        <span class="current-page">Page {{ page }} of {{pages}}.</span>
+        {% if has_next %}<a class="next-page" href="?page={{next}}">next</a>{% endif %}
+    </span>
+</div>
+{%endif%}

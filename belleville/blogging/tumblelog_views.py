@@ -1,28 +1,30 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import list_detail, simple
 
-#from dizzy.utils import annotate
+from project_utils import annotate, get_page
+
+from site_preferences.utils import get_cached_site_prefs
 
 from models import TumblelogEntry
 from settings import BloggingSettings
 
 #from utils import get_headline
 
+site_prefs = get_cached_site_prefs()
     
-#@annotate(breadcrumb=BlogSettings.TITLE)
-def entry_list(request):
+@annotate(breadcrumb=site_prefs.tumblelog_title)
+def tumblelog_entry_list(request):
     """A view of all tumblelog entires, paginated"""
-    current_page = get_page(request)
-    return list_detail.object_list(
-        queryset = TumblelogEntry.objects.published,
-        paginate_by  = BloggingSettings.PAGINATE_TUMBLELOG_INDEX_AT,
-        page = current_page
+    return list_detail.object_list(request,
+        queryset = TumblelogEntry.objects.published(),
+        paginate_by  = site_prefs.tumblelog_entries_per_page,
+        page = get_page(request),
         template_name = "blogging/tumblelog_entry_list.html",
         template_object_name = "entry"
     )
 
 #@annotate(breadcrumb=get_headline)
-def entry_detail(request, slug=None):
+def tumblelog_entry_detail(request, slug=None):
     """A view of a tumblelog entry"""
     entry = get_object_or_404(TumblelogEntry.objects.published, slug=slug)
     return simple.direct_to_template(request, 
@@ -30,12 +32,3 @@ def entry_detail(request, slug=None):
         extra_context={'entry': entry}
     )
 
-def get_page(request):
-    """
-    Not a view function, just a utility to get the page number from a request 
-    object.
-    """
-    page = request.GET.get('page', '1')
-    if page.isdigit():
-        return int(page)
-    return 1

@@ -9,29 +9,31 @@ class TumblelogEntry(models.Model):
     """
     A model of a tumblelog (aka 'microblog') entry
     
-    Jason Kottke describes a tumblelog as "a quick and dirty stream of 
+    Jason Kottke aptly describes a tumblelog as "a quick and dirty stream of 
     consciousness, a bit like a remaindered links style linklog but with more 
     than just links."
     
     """
-    slug = models.SlugField(_("Slug"),
+    slug = models.SlugField(_("Slug"))
     title = models.TextField(_("Title"))
     post = models.TextField(_("Post"), blank=True)
-    author = models.ForeignKey(Author, related_name="tumblelog_entries")
+    author = models.ForeignKey('authors.Author', 
+        related_name="tumblelog_entries"
+    )
     status = models.CharField(_("Status"),
-        max_length=1, 
+        max_length=25, 
         choices=BloggingSettings.PUB_STATES,
         default=BloggingSettings.DEFAULT_PUB_STATE
     )
-    pub_date = models.DateTimeField(_(u"Publication Date"), 
+    to_twitter = models.BooleanField(_("Post to Twitter"),
+        help_text=_("Post this to the account listed in your site settings file.")
+    )    
+    pub_date = models.DateTimeField(_(u"Publication date"), 
         help_text=_((
             "Dates in the future will not appear on the "
             "site until the date is reached"
         )),
         default=datetime.now()
-    )
-    post_to_twitter = models.BooleanField(_("Post to Twitter"),
-        help_text=_("Post this to the account listed in your site settings.")
     )
     
     objects = BloggingEntryManager()
@@ -52,9 +54,9 @@ class TumblelogEntry(models.Model):
     def post_to_twitter(self):
         raise NotImplementedError, "Coming soon..."
 
-class Entry(models.Model):
+class BlogEntry(models.Model):
     """A model of a blog entry"""
-    pub_date = models.DateTimeField(_(u"Publication Date"), 
+    pub_date = models.DateTimeField(_(u"Publication date"), 
         help_text=_((
             "Dates in the future will not appear on the "
             "site until the date is reached"
@@ -68,12 +70,12 @@ class Entry(models.Model):
         blank=True, 
         help_text=_("Below the fold.")
     )
-    author = models.ForeignKey(Author, related_name="simpleblog_entries")
+    author = models.ForeignKey('authors.Author', related_name="blog_entries")
     status = models.CharField(
         max_length=255, 
-        choices=BloggingSettings.ENTRY_STATES
+        choices=BloggingSettings.PUB_STATES
     )
-    allow_comments = models.BooleanField(_(u"Allow Comments?"), 
+    allow_comments = models.BooleanField(_(u"Allow comments?"), 
         default=BloggingSettings.COMMENTS_ALLOWED
     )
     objects = models.Manager()
