@@ -1,11 +1,8 @@
 {%extends "base.html" %}
 {%block title%}{{site_preferences.tumblelog_title}}{%endblock%}
 {%block body%}
-{%for entry in entry_list%}<div class="entry">
-<h2><a href="{{entry.get_absolute_url}}">{{entry.title|safe}}</a></h2>
-<div class="post-body">
-{{entry.post|safe}}
-</div>
-</div>{%endfor%}
+{%for entry in entry_list%}
+{%include 'blogging/tumblelog_entry.html'%}
+{%endfor%}
 {%include 'pagination.html'%}
 {%endblock%}

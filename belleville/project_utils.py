@@ -16,7 +16,8 @@ def annotate(**kwargs):
 class CacheError(Exception):
     """
     An exception which will be raised when Django's low-level cache framework
-    doesn't seem to work (probably becuase it's not configured by the user)."""
+    doesn't seem to work (probably becuase it's not configured by the user).
+    """
     # Fixme: let the user they need to turn caching on
     pass
 
@@ -29,4 +30,30 @@ def get_page(request, param_name="page"):
     if page.isdigit():
         return int(page)
     return 1
+
+# Startup Registry: adds a way to register a function to be called once,
+# when the app starts up
+
+class StartupHookRegistryFactory(object): 
+
+    _registry = []
     
+    def register(self, f):
+        assert hasattr(f, '__call__'), (
+            "Items registered to the startup registry must be callable."
+            "%s is not." % f.__repr__()
+            )
+        self._registry.append(f)
+    
+    def activate(self):
+        [f.__call__() for f in self._registry]
+        
+StartupHookRegistry = StartupHookRegistryFactory()
+
+from django import template
+StartupHookRegistry.register(
+    lambda: template.add_to_builtins(
+        'django.contrib.humanize.templatetags.humanize'
+    )
+)
+

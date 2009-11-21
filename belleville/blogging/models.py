@@ -49,7 +49,7 @@ class TumblelogEntry(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("tumblelog:entry_detail", (), {'slug': self.slug})
+        return ("tumblelog:detail", (), {'slug': self.slug})
     
     def post_to_twitter(self):
         raise NotImplementedError, "Coming soon..."
