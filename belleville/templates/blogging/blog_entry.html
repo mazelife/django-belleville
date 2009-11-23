@@ -1,0 +1,12 @@
+<div class="entry">
+    <h2><a href="{{entry.get_absolute_url}}">{{entry.headline|safe}}</a></h2>
+    <div class="entry-date">{{entry.pub_date|naturalday}}</div>
+    <div class="entry-body" id="above-fold">
+    {{entry.intro|safe}}
+    </div>
+    {%if entry.body%}
+    <div class="entry-body" id="below-fold">
+    {{entry.body|safe}}
+    </div>
+    {%endif%}
+</div>
