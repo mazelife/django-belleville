@@ -78,8 +78,7 @@ class BlogEntry(models.Model):
     allow_comments = models.BooleanField(_(u"Allow comments?"), 
         default=BloggingSettings.COMMENTS_ALLOWED
     )
-    objects = models.Manager()
-    published_objects = BloggingEntryManager()
+    objects = BloggingEntryManager()
     
     class Meta:
         verbose_name = "blog entry"
@@ -95,7 +94,7 @@ class BlogEntry(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        return ("simpleblog:entry_detail", (), {
+        return ("blog:entry_detail", (), {
             'year': self.pub_date.year, 
             'month': self.pub_date.month, 
             'day': self.pub_date.day, 
