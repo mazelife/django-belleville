@@ -106,4 +106,4 @@ class BlogEntry(models.Model):
         if not self.allow_comments:
             return False
         delta = datetime.datetime.now() - self.pub_date
-        return delta.days < BlogSettings.DAYS_COMMENTS_OPEN  
+        return delta.days < BlogSettings.DAYS_COMMENTS_OPEN

@@ -16,7 +16,7 @@ def entry_list(request):
     """A view of a blog index page"""
     return list_detail.object_list(request, 
         queryset= BlogEntry.objects.published(),
-        paginate_by = get_cached_site_prefs().tumblelog_entries_per_page,
+        paginate_by = get_cached_site_prefs().blog_entries_per_page,
         page = get_page(request),
         template_name = 'blogging/blog_entry_list.html',
         template_object_name = "entry"
