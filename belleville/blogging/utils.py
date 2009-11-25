@@ -1,4 +1,4 @@
-from datetime import date 
+from datetime import date, datetime
 
 from django.core.cache import cache
 
@@ -18,9 +18,13 @@ def get_cached_tumblelog_entry_title(slug=None):
     cache_key = 'tumblelog_entry_%s' % slug
     name = cache.get(cache_key)
     if not name:
+        try:
+            entry = TumblelogEntry.objects.published().get(slug=slug).title
+        except TumblelogEntry.DoesNotExist:
+            return None
         cache.set(
             cache_key, 
-            TumblelogEntry.objects.published().get(slug=slug).title,
+            entry,
             SPEEDY_LOOKUP_TTL
         )
         name = cache.get(cache_key)
@@ -60,48 +64,97 @@ def get_cached_blog_entry_headline(
             ))
     return name
 
-def make_sample_posts(count=50):
-    """
-    This is a convinience function to quickly generate a bunch of sample
-    blog posts with random loren ipsum text and dates. The count parameter
-    specifies how many posts to generate.
-    """
-    from datetime import datetime
-    from random import randrange, choice
-    from django.contrib.webdesign.lorem_ipsum import paragraphs, words
-    from django.template.defaultfilters import slugify
-    from models import BlogEntry
-    from settings import BloggingSettings
-    from authors.models import Author
+from random import randrange, choice
+from django.contrib.webdesign.lorem_ipsum import paragraphs, words
+from django.template.defaultfilters import slugify
+from settings import BloggingSettings
+from authors.models import Author
     
-    slice_size = 50 - len(str(count)) - 1
-    slugs = []
-    def check_slug(slug, count=0):
-        if slug in slugs:
-            slug = slug[:slice_size] + "-%d" % (count + 1)
-            return check_slug(slug, count=(count + 1))
+class TestData(object):
+    """A utility for creating random test data"""
+    
+    @classmethod
+    def create_sample_blog_entries(klass, count=50):
+        """
+        Create N number of sample blog entries where N = the count parameter.
+        Text in posts till be random lorem ipsum text. Author will be a 
+        randomly selected author from the system, and date will be a random date
+        from the last 2 years. All test entries will be marked "published".
+        """
+        klass._setup(BlogEntry, count)
+        while count > 0:
+            headline = words(randrange(3,12), common=False).capitalize()
+            slug = klass._check_slug(slugify(headline)[:klass.field_len])
+            b = BlogEntry(
+                headline = headline,
+                slug = slug,
+                intro = klass._join_paras(
+                    paragraphs(randrange(1,3), common=False)
+                ),
+                body = klass._join_paras(
+                    paragraphs(randrange(2,5), common=False)
+                ),
+                pub_date = klass._get_rand_date(),
+                status = BloggingSettings.PUBLISHED_ENTRY_STATES[0],
+                author = Author.objects.order_by('?')[0]
+            )
+            b.save()
+            count += -1
+    
+    @classmethod
+    def create_sample_tumblelog_entries(klass, count=50):
+        """
+        Create N number of sample tumblelog entries where N = the count 
+        parameter. Text in posts till be random lorem ipsum text. Author will be
+        a randomly selected author from the system, and date will be a random 
+        date from the last 2 years. All test entries will be marked "published".
+        """    
+        klass._setup(TumblelogEntry, count)
+        while count > 0:
+            title = words(randrange(3,12), common=False).capitalize()
+            slug = klass._check_slug(slugify(title)[:klass.field_len])
+            b = TumblelogEntry(
+                slug = slug,
+                title= title,
+                post = klass._join_paras(
+                    paragraphs(randrange(1,3), common=False)
+                ),
+                pub_date = klass._get_rand_date(),
+                status = BloggingSettings.PUBLISHED_ENTRY_STATES[0],
+                author = Author.objects.order_by('?')[0]
+            )
+            b.save()
+            count += -1    
+
+    @classmethod
+    def _setup(klass, model, count):
+        klass.slugs = []
+        klass.field_len = model._meta.get_field('slug').max_length
+        klass.slice_size = klass.field_len - len(str(count)) - 1
+
+    
+    @classmethod
+    def _check_slug(klass, slug, count=0):
+        if slug in klass.slugs:
+            slug = slug[:klass.slice_size] + "-%d" % (count + 1)
+            return _check_slug(slug, count=(count + 1))
         else:
-            slugs.insert(0, slug)
+            klass.slugs.insert(0, slug)
             return slug
-    def join_paras(paras):
+
+    @staticmethod
+    def _get_rand_date():
+        """Get a random date in the last 2 years"""
+        years = [datetime.now().year]
+        years.append(years[0] - 1)
+        return datetime(
+            choice(years),
+            randrange(1,12),
+            randrange(1,28),
+            randrange(1,24),
+            randrange(1,60)
+        )    
+
+    @staticmethod
+    def _join_paras(paras):
         return "\n".join(["<p>%s</p>" % p for p in paras])
-    while count > 0:
-        headline = words(randrange(3,12), common=False).capitalize()
-        slug = check_slug(slugify(headline)[:50])
-        b = BlogEntry(
-            headline = headline,
-            slug = slug,
-            intro = join_paras(paragraphs(randrange(1,3), common=False)),
-            body = join_paras(paragraphs(randrange(2,5), common=False)),
-            pub_date = datetime(
-                choice([2009, 2008]),
-                randrange(1,12),
-                randrange(1,30),
-                randrange(1,24),
-                randrange(1,60)
-            ),
-            status = BloggingSettings.PUBLISHED_ENTRY_STATES[0],
-            author = Author.objects.order_by('?')[0]
-        )
-        b.save()
-        count += -1    

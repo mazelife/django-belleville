@@ -12,7 +12,7 @@ class AuthorTest(TestCase):
         Verify that the author listing page contains all author names within the
         page's context.
         """
-        response = self.client.get(reverse("authors:author_list"))
+        response = self.client.get(reverse("authors:list"))
         self.failUnlessEqual(response.status_code, 200)
         try:
              response.context['author_list']
