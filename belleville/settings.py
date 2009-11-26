@@ -1,6 +1,6 @@
 # Django settings for belleville project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -80,6 +80,7 @@ TEMPLATE_DIRS = (
 )
 LOGIN_URL = "/admin/login/"
 LOGOUT_URL = "/admin/logout/"
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.admin',
