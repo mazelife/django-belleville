@@ -1,0 +1,115 @@
+/************************
+/* Typography          */
+/***********************/
+
+body { color: #3b3a3a; }
+a { 
+    color: #801414;
+    text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+a:visited { color: #8D8B24; }
+a:active { color: #04314D; }
+p { margin-bottom: 0.9em; }
+/************************
+/* Logo          */
+/***********************/
+#logo {
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    display: block;
+    height: 44px;
+    margin: 10px 0 25px 25px;
+    text-indent: -999em;    
+    width: 229px;
+}
+/************************
+/* Pagination          */
+/***********************/
+.pagination {
+    font-size: 1.1em;
+    text-align: center;
+    width: 600px;
+}
+/************************
+/* Tagging             */
+/***********************/
+.tags {
+    margin-top: 25px;
+}
+.tags ul {
+    list-style-type: none;
+    margin-top: 7px;
+}
+.tags li { 
+    display: inline; 
+    padding: 0 .5em;
+}
+/************************
+/* Breadcrumb Styling */
+/***********************/
+
+#breadcrumb  {
+    border-top: 4px solid #000000;
+    height:36px;
+    list-style-type:none;
+    margin:0 0 30px 0;
+    padding: 0 0 0 25px;
+    top:0;
+}       
+#breadcrumb li {
+    display:block;
+    float:left;
+    line-height:36px;
+    border-left:1px solid #BBCCDD;
+}
+
+#breadcrumb li a {
+    background-color:transparent;
+    display:block;
+    padding:0 12px;
+    font-size:15px;
+    text-decoration:none;
+}
+
+#breadcrumb li a:hover { background-color: #BBCCDD; }
+
+#breadcrumb li.first  { 
+    border: 0px;
+}
+#breadcrumb li.last  { padding:0 12px; }
+/************************
+/* Comments Styling */
+/***********************/
+
+#comments { margin: 0 0 50px 25px; }
+
+#comments form { overflow: hidden; }
+
+#comments form label { clear: both; }
+
+#comments form #comment textarea { height: 300px; }
+
+#comments form #honeypot { display: none; }
+
+/************************
+/* Blog Entry Styling */
+/***********************/
+
+.archive-title { margin: 0 0 10px 25px; }
+
+.entry {
+    padding-left: 25px;
+    width: 600px;
+}
+
+.date {
+    font-size:1em;
+    margin-top:-20px;
+    text-align:right;
+}
+    .date span {
+        color:#801414;
+        font-size:1.3em;
+        font-weight:bold;
+    }
