@@ -4,9 +4,9 @@ This snippet can be used for all generic views which provide pagination.
 {%if is_paginated%}
 <div class="pagination">
     <span class="step-links">
-        {% if has_previous %}<a class="previous-page" href="?page={{previous}}">previous</a>{% endif %}
+        {% if has_previous %}<a class="previous-page" href="?page={{previous}}"><img src="{{MEDIA_URL}}images/left_arrow.png" alt=""></a>{% endif %}
         <span class="current-page">Page {{ page }} of {{pages}}.</span>
-        {% if has_next %}<a class="next-page" href="?page={{next}}">next</a>{% endif %}
+        {% if has_next %}<a class="next-page" href="?page={{next}}" title="next page"><img src="{{MEDIA_URL}}images/right_arrow.png" alt=""></a>{% endif %}
     </span>
 </div>
 {%endif%}

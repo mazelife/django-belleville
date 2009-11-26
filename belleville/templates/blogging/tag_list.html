@@ -1,0 +1,8 @@
+{%if entry.tags%}
+<div class="tags">
+    <h3>tagged with:</h3>
+    <ul>{%for tag in entry.tags%}
+        <li><a href="{{tag.get_absolute_url}}">{{tag.name}}</a></li>
+    {%endfor%}</ul>
+</div>
+{%endif%}
