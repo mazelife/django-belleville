@@ -94,6 +94,7 @@ def archive_year(request, year=None):
         template_name="blogging/blog_archive_list.html",
         date_field='pub_date',
         year=year,
+        make_object_list=True,
         extra_context={
             'archive_type': 'year', 
             'date': date(int(year), 1, 1)},

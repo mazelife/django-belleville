@@ -81,7 +81,8 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     'django.contrib.auth',
-    'django.contrib.admin',    
+    'django.contrib.admin',
+    'django.contrib.comments',
     'django.contrib.contenttypes',
     'django.contrib.flatpages',
     'django.contrib.humanize',
@@ -92,10 +93,15 @@ INSTALLED_APPS = (
     'blogging',
     #'blogging',
     # Third party apps:
-    'south'
+    'south',
+    'tagging'
 )
 
 AUTH_PROFILE_MODULE = 'author.Author'
+
+# django-tagging app settings:
+FORCE_LOWERCASE_TAGS = True
+MAX_TAG_LENGTH = 100
 
 try:
     from local_settings import *
@@ -111,3 +117,8 @@ try:
     INSTALLED_APPS += LOCAL_INSTALLED_APPS
 except NameError:
     pass
+
+from os import path
+import sys
+external_apps_path = path.join(path.dirname(__file__), "external_apps")
+sys.path.append(external_apps_path) 
