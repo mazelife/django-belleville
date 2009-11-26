@@ -79,7 +79,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 LOGIN_URL = "/admin/login/"
-
+LOGOUT_URL = "/admin/logout/"
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.admin',
