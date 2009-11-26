@@ -1,10 +1,13 @@
 {% load comments %}
 {% get_comment_count for entry as comment_count %}
-{% get_comment_list for entry as comment_list %}
-<div id="comments">
-    <p class="status">There {{comment_count|pluralize:"is,are"}} {{comment_count}} comment{{comment_count|pluralize}} for this post.</p>
+<div class="comments">
+    {%if is_list_view%}
+    <p class="status" style="background-image: url({{MEDIA_URL}}images/comment.png);">There {{comment_count|pluralize:"is,are"}} <a href="{{entry.get_absolute_url}}#comments">{{comment_count}} comment{{comment_count|pluralize}}</a> for this post.</p>
+    {%else%}
+    {% get_comment_list for entry as comment_list %}
     {% get_comment_form for entry as comment_form %}
-    <form action="{% comment_form_target %}" method="post">{% csrf_token %}
+    <h3>comments:</h3>
+    <form id="comments" action="{% comment_form_target %}" method="post">{% csrf_token %}
     {% for field in comment_form %}
         {%if field.is_hidden%}{{field}}{%else%}
         <label id="{{field.html_name}}" class="{%ifequal field.html_name 'comment'%} multilinex6{%endifequal%} unitx4">{{field.label}}&nbsp;{{field}}</label>{%if field.errors%}<span class="errors">{{field.errors}}<span>{%endif%}
@@ -14,8 +17,8 @@
         <br style="clear: both">
         <input type="submit" name="preview" class="submit-post" value="Preview">
     </form>
-    {%for comment in comment_list%}
-    <dl class="comment {%cycle 'odd' 'even'%}">
+    <p class="status" style="background-image: url({{MEDIA_URL}}images/comment.png);">There {{comment_count|pluralize:"is,are"}} {{comment_count}} comment{{comment_count|pluralize}} for this post:</p>    
+    {%for comment in comment_list%}<dl class="comment {%cycle 'odd' 'even'%}">
         <dt>user:</dt>
         <dd>
         {%if comment.user_url%}
@@ -26,6 +29,6 @@
         </dd>
         <dt>date:</dt><dd>{{comment.submit_date|date:"M j, Y h:i a"}}</dd>
         <dt>comment:</dt><dd>{{comment.comment}}</dd>    
-    </dl>
-    {%endfor%}
+    </dl>{%endfor%}
+    {%endif%}
 </div>

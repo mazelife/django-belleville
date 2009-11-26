@@ -82,15 +82,23 @@ p { margin-bottom: 0.9em; }
 /* Comments Styling */
 /***********************/
 
-#comments { margin: 0 0 50px 25px; }
+.comments { margin: 0 0 50px 25px; }
 
-#comments form { overflow: hidden; }
+.comments .status { 
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    text-indent: 20px;
+}
+.comments .status:hover {
+    background-position: 0 -21px;
+}
+.comments form { overflow: hidden; }
 
-#comments form label { clear: both; }
+.comments form label { clear: both; }
 
-#comments form #comment textarea { height: 300px; }
+.comments form #comment textarea { height: 300px; }
 
-#comments form #honeypot { display: none; }
+.comments form #honeypot { display: none; }
 
 /************************
 /* Blog Entry Styling */
