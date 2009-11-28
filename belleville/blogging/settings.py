@@ -24,6 +24,9 @@ class BloggingSettings:
     COMMENTS_ALLOWED = False
     # Number of days a blog entry should allow comments to remain open:
     DAYS_COMMENTS_OPEN = 60
+    
+    TWITTER_EMAIL = None
+    TWITTER_PASSWORD = None
 
 # Import global project settings:
 from django.conf import settings as _settings

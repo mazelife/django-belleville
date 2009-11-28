@@ -1,4 +1,6 @@
 from datetime import datetime
+from django.contrib.admin.models import LogEntry, ADDITION as ADD_ACTION_FLAG
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -25,9 +27,19 @@ class TumblelogEntry(models.Model):
         choices=BloggingSettings.PUB_STATES,
         default=BloggingSettings.DEFAULT_PUB_STATE
     )
-    to_twitter = models.BooleanField(_("Post to Twitter"),
-        help_text=_("Post this to the account listed in your site settings file.")
-    )    
+    to_twitter = models.CharField(_("Post to Twitter"),
+        choices = (
+            ('p', _("Post to twitter on save.")),
+            ('x', _("Don't post to Twitter on save.")),
+            ('d', _("Already posted to Twitter. Don't do anything on save.")),
+            ('f', _("Post failed: error communicating with Twitter API ."))
+        ),
+        default = "x",
+        help_text=_((
+            "Post this to the account listed in your site settings file."
+        )),
+        max_length = 10
+    )
     pub_date = models.DateTimeField(_(u"Publication date"), 
         help_text=_((
             "Dates in the future will not appear on the "
@@ -51,8 +63,46 @@ class TumblelogEntry(models.Model):
     def get_absolute_url(self):
         return ("tumblelog:detail", (), {'slug': self.slug})
     
-    def post_to_twitter(self):
-        raise NotImplementedError, "Coming soon..."
+    def twitter_pre_save(self, request=None):
+        if self.to_twitter == 'p':
+            post_sucessful = self.post_to_twitter(request=request)
+            if post_sucessful:
+                self.to_twitter = 'd'
+                return True
+            else:
+                self.to_twitter = 'f'    
+                return False
+        return True
+    
+    def post_to_twitter(self, request=None):
+        from twitter import Twitter, TwitterError
+        # If a request isn't passed, log the entry to the author:
+        user_id = request and request.user.id or self.author.user.id
+        max_chars = 140
+        if len(self.post) > 140:
+            return False 
+        twitter = Twitter(
+            BloggingSettings.TWITTER_EMAIL,
+            BloggingSettings.TWITTER_PASSWORD
+        )
+        try:
+            twitter.statuses.update(status=self.post)
+            action = "Added post to %s's twitter feed." \
+                % BloggingSettings.TWITTER_EMAIL
+            return_status = True
+        except TwitterError:
+            action = "Failed to post to twitter."
+            return_status = False
+        # Add tweet to Django admin's action log:
+        LogEntry.objects.log_action(
+            user_id         = user_id,
+            content_type_id = ContentType.objects.get_for_model(self).pk,
+            object_id       = self.pk,
+            object_repr     = action,
+            change_message  = action,
+            action_flag     = ADD_ACTION_FLAG
+        )
+        return return_status
 
 class BlogEntry(models.Model):
     """A model of a blog entry"""
