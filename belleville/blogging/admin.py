@@ -1,10 +1,14 @@
 from django.contrib import admin
 from django.contrib.comments.moderation import CommentModerator, moderator
 from django.contrib.contenttypes import generic
+from django.db import models
 from django.utils.encoding import force_unicode
 from django.contrib.comments.models import Comment
 
+from project_utils import CKEditor
+
 from models import BlogEntry, TumblelogEntry
+
 
 from tagging.models import TaggedItem
 
@@ -23,13 +27,22 @@ class CommentsInline(generic.GenericTabularInline):
 
 
 class BlogEntryAdmin(admin.ModelAdmin):
-    
+    formfield_overrides = {
+        models.TextField: {
+            'widget' : CKEditor(ck_attrs={'height': '500px'})
+        }
+    }
     inlines = [TaggingInline]
 
 class TumblelogEntryAdmin(admin.ModelAdmin):
     """
     An admin site object for Tumblelog entry. Handles posting to Twitter.
     """
+    formfield_overrides = {
+        models.TextField: {
+            'widget' : CKEditor(ck_attrs={'height': '350px'})
+        }
+    }
     def save_model(self, request, obj, form, change):
         save_successful = obj.twitter_pre_save(request=request)
         message_args = {
