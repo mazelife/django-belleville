@@ -1,0 +1,25 @@
+<style type="text/css">
+.{{field_name}} label { 
+    margin-bottom: 2px;
+    float: none; 
+}
+</style>
+{{field}}
+<script type="text/javascript">
+var CKeditor = new CKEDITOR.replace('{{field_name}}', {
+    customConfig : '',
+    {{options}}
+    toolbar: [
+        ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker'],
+        ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+        ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+        ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+        ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+        ['Link','Unlink','Anchor'],
+        ['Styles','Format','Font','FontSize'],
+        ['TextColor','BGColor'],
+        ['Maximize', 'ShowBlocks']
+    ]    
+});
+CKeditor.BasePath = "{{basepath}}";
+</script>
