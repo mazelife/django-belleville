@@ -19,7 +19,6 @@ class BlogTest(TestCase):
         response = self.client.get(reverse("blog:entry_list"))
         self.failUnlessEqual(response.status_code, 200)
         paginate_at = get_cached_site_prefs().blog_entries_per_page
-        
         try:
              response.context['entry_list']
         except KeyError:
@@ -29,7 +28,7 @@ class BlogTest(TestCase):
             
     def test_entry_detail_pages(self):
         """
-        Verify that each author has a detail page and that the author is 
+        Verify that each entry has a detail page and that the entry is 
         contained within the page's context.
         """
         for entry in BlogEntry.objects.published():
@@ -129,4 +128,36 @@ class TumblelogTest(TestCase):
         entry.save()
         # Should be visible:
         response = self.client.get(entry.get_absolute_url())
-        self.assertTrue(response.status_code == 200)        
+        self.assertTrue(response.status_code == 200)
+
+class SiteIndexTest(TestCase):
+
+    fixtures = ['test_data.json']
+    
+    def test_index(self):
+        """
+        Verify that the site index page contains all blog entries and tumblelog 
+        entires within the page's context.
+        """
+        response = self.client.get(reverse("index"))
+        self.failUnlessEqual(response.status_code, 200)
+        pg_blog_at = get_cached_site_prefs().blog_entries_per_page
+        pg_tumblelog_at = get_cached_site_prefs().tumblelog_entries_per_page 
+        try:
+             response.context['blog_entry_list']
+        except KeyError:
+            self.fail((
+                "Template context did not contain required blog entry "
+                "objects."
+            ))
+        for entry in BlogEntry.objects.published()[:pg_blog_at]:
+            self.assertTrue(entry in response.context['blog_entry_list'])
+        try:
+             response.context['tumblelog_entry_list']
+        except KeyError:
+            self.fail((
+                "Template context did not contain required tumblelog entry "
+                "objects."
+            ))
+        for entry in TumblelogEntry.objects.published()[:pg_tumblelog_at]:
+            self.assertTrue(entry in response.context['tumblelog_entry_list'])        

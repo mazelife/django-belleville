@@ -1,10 +1,10 @@
 from django.contrib import admin
+from django.contrib.comments.moderation import CommentModerator, moderator
 from django.contrib.contenttypes import generic
 from django.utils.encoding import force_unicode
+from django.contrib.comments.models import Comment
 
 from models import BlogEntry, TumblelogEntry
-
-
 
 from tagging.models import TaggedItem
 
@@ -13,6 +13,14 @@ class TaggingInline(generic.GenericTabularInline):
     extra = 3
     verbose_name_plural = "Tags for this item:"
     max_num = 10
+
+class CommentsInline(generic.GenericTabularInline):
+    ct_fk_field = "object_pk"
+    model = Comment
+    extra = 1
+    verbose_name_plural = "Comments for this item:"
+    max_num = 10
+
 
 class BlogEntryAdmin(admin.ModelAdmin):
     
@@ -42,3 +50,9 @@ class TumblelogEntryAdmin(admin.ModelAdmin):
 
 admin.site.register(TumblelogEntry, TumblelogEntryAdmin)
 admin.site.register(BlogEntry, BlogEntryAdmin)
+
+class BlogEntryModerator(CommentModerator):
+    email_notification = True
+    enable_field = 'comments_alowed'
+
+moderator.register(BlogEntry, BlogEntryModerator)

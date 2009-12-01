@@ -90,7 +90,7 @@ p { margin-bottom: 0.9em; }
     text-indent: 20px;
 }
 .comments .status:hover {
-    background-position: 0 -21px;
+    background-position: 0 -20px;
 }
 .comments form { overflow: hidden; }
 
@@ -99,6 +99,21 @@ p { margin-bottom: 0.9em; }
 .comments form #comment textarea { height: 300px; }
 
 .comments form #honeypot { display: none; }
+
+.comment {
+    border-bottom: 1px solid silver; 
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    width: 600px;
+}
+
+    .comment.last { border-bottom: 0px; }
+
+.comment dt { 
+    float: left; 
+    padding-right: 10px;
+}
+.comment dt.comment-text { float: none; }
 
 /************************
 /* Blog Entry Styling */

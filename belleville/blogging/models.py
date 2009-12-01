@@ -75,6 +75,10 @@ class TumblelogEntry(models.Model):
         return True
     
     def post_to_twitter(self, request=None):
+        """
+        A lightweight wrapper around http://mike.verdone.ca/twitter/ -- Mike 
+        Verdone's Python Twitter Tools (PTT).
+        """    
         from twitter import Twitter, TwitterError
         # If a request isn't passed, log the entry to the author:
         user_id = request and request.user.id or self.author.user.id
@@ -91,9 +95,11 @@ class TumblelogEntry(models.Model):
                 % BloggingSettings.TWITTER_EMAIL
             return_status = True
         except TwitterError:
-            action = "Failed to post to twitter."
+            action = (
+                "Failed to post to twitter: could not connect to twitter API."
+            )
             return_status = False
-        # Add tweet to Django admin's action log:
+        # Record action in Django admin's action log:
         LogEntry.objects.log_action(
             user_id         = user_id,
             content_type_id = ContentType.objects.get_for_model(self).pk,

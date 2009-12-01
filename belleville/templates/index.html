@@ -1,0 +1,41 @@
+{%extends "base.html" %}
+{%block title%}{{site_preferences.site_tite}}{%endblock%}
+{%block head%}
+<style type="text/css">
+/* Combined */
+.blog_entries,
+.tumblelog_entries {
+    float: left;
+    padding-left: 25px;
+}
+.blog_entries .entry,
+.tumblelog_entries .entry { padding-left: 0px; }
+/* Blog column */
+.blog_entries {
+    width: 625px;
+}
+/* Tumblelog column */
+.tumblelog_entries { width: 325px; }
+.tumblelog_entries .entry { width: 300px; }
+.tumblelog_entries h2 { 
+    font-size: 22px; 
+    line-height: 24px;
+}
+</style>
+{%endblock%}
+{%block body%}
+<div class="blog_entries">
+<h2 class><a href="{%url blog:entry_list%}">{{site_preferences.blog_title}}</a></h2>
+{%for entry in blog_entry_list%}
+    {%include 'blogging/blog_entry.html'%}
+{%endfor%}
+<a href="{{blog_next_page_link}}">More blog entries</a>
+</div>
+<div class="tumblelog_entries">
+<h2><a href="{%url tumblelog:list%}">{{site_preferences.tumblelog_title}}</a></h2>
+{%for entry in tumblelog_entry_list%}
+    {%include 'blogging/tumblelog_entry.html'%}
+{%endfor%}
+<a href="{{tumblelog_next_page_link}}">More tumbleblog entries</a>
+</div>
+{%endblock%}

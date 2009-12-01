@@ -7,6 +7,7 @@
     {% get_comment_list for entry as comment_list %}
     {% get_comment_form for entry as comment_form %}
     <h3>comments:</h3>
+    {%if entry.comments_allowed%}
     <form id="comments" action="{% comment_form_target %}" method="post">{% csrf_token %}
     {% for field in comment_form %}
         {%if field.is_hidden%}{{field}}{%else%}
@@ -18,7 +19,10 @@
         <input type="submit" name="preview" class="submit-post" value="Preview">
     </form>
     <p class="status" style="background-image: url({{MEDIA_URL}}images/comment.png);">There {{comment_count|pluralize:"is,are"}} {{comment_count}} comment{{comment_count|pluralize}} for this post:</p>    
-    {%for comment in comment_list%}<dl class="comment {%cycle 'odd' 'even'%}">
+    {%else%}
+    <p class="status" style="background-image: url({{MEDIA_URL}}images/comment.png);">Comments are closed for this entry. {%if comment_count%}There {{comment_count|pluralize:"is,are"}} {{comment_count}} comment{{comment_count|pluralize}} for this post:{%endif%}</p>        
+    {%endif%}
+    {%for comment in comment_list%}<dl class="comment {%cycle 'odd' 'even'%}{%if forloop.last%} last{%endif%}">
         <dt>user:</dt>
         <dd>
         {%if comment.user_url%}
@@ -28,7 +32,7 @@
         {%endif%}
         </dd>
         <dt>date:</dt><dd>{{comment.submit_date|date:"M j, Y h:i a"}}</dd>
-        <dt>comment:</dt><dd>{{comment.comment}}</dd>    
+        <dt class="comment-text">comment:</dt><dd class="comment-text">{{comment.comment}}</dd>    
     </dl>{%endfor%}
     {%endif%}
 </div>
