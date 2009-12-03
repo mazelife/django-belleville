@@ -1,0 +1,280 @@
+/* Global reset */
+/* Based upon 'reset.css' in the Yahoo! User Interface Library: http://developer.yahoo.com/yui */
+*, html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, label, fieldset, input, p, blockquote, th, td { margin:0; padding:0 }
+table { border-collapse:collapse; border-spacing:0 }
+fieldset, img { border:0 }
+address, caption, cite, code, dfn, em, strong, th, var { font-style:normal; font-weight:normal }
+ol, ul, li { list-style:none }
+caption, th { text-align:left }
+h1, h2, h3, h4, h5, h6 { font-size:100%; font-weight:normal }
+q:before, q:after { content:''}
+
+/* Global reset-RESET */
+/* The below restores some sensible defaults */
+strong { font-weight: bold }
+em { font-style: italic }
+a img { border:none } /* Gets rid of IE's blue borders */
+h1, h2, h3, h5, h5, h6 { font-weight: normal; } 
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+body { font-size: 62.5%; } /* 1px == 1em */
+
+/* http://www.positioniseverything.net/easyclearing.html */
+.clearfix:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+.clearfix {display: inline-block;}
+/* Hides from IE-mac \*/
+.clearfix {display: block;}
+* html .clearfix {height: 1%;}
+/* end hide from IE-mac */
+
+/************************
+/* Page Layout */
+/***********************/
+
+body {
+    font-family: helvetica, arial, sans-serif;
+    background: url(images/bg_deepest.gif) repeat-y center top;
+    margin: 0;
+    padding: 0;
+}
+    body.background_positioned {
+        background-position: -3290px 0;    
+    }
+
+#wrap {
+    width: 960px; 
+    width: 1422px;
+    margin: 0px auto;
+    /*background: url(images/bg_split.gif) no-repeat center top;*/
+}
+#header {
+    width: 1422px; /* full */
+    height: 42px;
+    position: relative;
+}
+#globalNav {
+    width: 316px;
+    height: 42px;
+    position: absolute;
+    left: 508px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", sans-serif;
+    font-weight: 300;
+
+    font-size: 1.8em;
+}
+    #globalNav li {
+        display: inline;
+    }
+    
+    #globalNav li.active { font-weight: bold; }
+    
+            #globalNav li a {
+                display: block;
+                float: left;
+                border-right: 1px solid #e8e8e8;
+                width: 60px; /* first as baseline default */
+                height: 30px; /* 42 */
+                text-align: center;
+                text-decoration: none;
+                color: #fafafa;
+                padding: 12px 0;
+                text-transform: lowercase;
+            }
+                    #globalNav li a:hover           { background: gray; }
+                    #globalNav li.nav_blog a        { width: 60px; }
+                    #globalNav li.nav_tumblelog a   { width: 100px; }
+                    #globalNav li.nav_about a       { width: 69px; }
+                    #globalNav li.nav_projects a    { width: 84px; border-right: none; }
+
+#page {
+    width: 1422px; /* full */
+    margin-bottom: 90px;
+}
+        #primary {
+            width: 410px;
+            padding-left: 231px;
+            float: left;
+            padding-top: 170px;
+        }
+        #secondary {
+            float:right;
+            padding-right:172px;
+            padding-top:145px;
+            width:341px;
+        }
+
+h1 {
+    font-size: 2.4em;
+    color: #f4fafc;
+    font-weight: bold;
+}
+
+h2 {
+    color: #989898;
+    font-size: 1.8em;
+}
+
+h1 a, h2 a {
+    color: #fff;
+}
+
+/* Link Colors */
+
+a { }
+a:hover { }
+a:active { }
+a:visited { }
+
+/************************
+/* Index Page Headings */
+/***********************/
+
+#logo { 
+    background: url(images/logo.png) no-repeat 0 0;
+    height:72px;
+    position:absolute;
+    text-indent:-999px;
+    top:87px;
+    width:400px;
+}
+
+    #logo a { 
+        display:block;
+        height:100%;
+        width:100%;
+    }
+    
+h2.section_title { display: none; }
+
+#secondary h2.section_title {
+    background: url(images/tumblelog_title.png) no-repeat 0 0;
+    display: block; 
+    font-size: 0px;
+    height: 63px;
+    text-indent: -999px;
+    margin-bottom: 35px;
+}
+/************************
+/* Blog Entry */
+/***********************/
+.blog_entries h1,
+.blog_entries h2 { /* in a list of blog entries, these are the same size */
+    font-size: 2.4em;
+    font-weight: bold;
+    line-height: 26px;
+    margin-bottom: 20px;
+}
+.entry {
+    margin-bottom: 60px; 
+}
+    .entry .date {
+        font-size: 1.4em; 
+        margin-bottom: 15px;    
+        text-align: right;
+    }
+        .entry .date span {
+            color: #af2424;
+            font-weight: bold;
+        }
+        
+    .entry .body {
+        font-family: georgia, times, "Times New Roman", serif; 
+        font-size: 1.4em;
+    }
+    .entry .meta {
+        margin-top: 15px;
+        font-size: 1.2em; 
+    }
+
+/************************
+/* Breadcrumbs  */
+/***********************/
+#breadcrumb {
+    position: absolute;
+    top: 175px;
+}
+#breadcrumb a { color: #fafafa; }
+
+/************************
+/* Tumblelog Entry */
+/***********************/
+
+.tumblelog_entries h1,
+.tumblelog_entries h2 {
+    font-size: 1.8em;
+    font-weight: normal;
+}
+    .tumblelog_entries h2 a { color: #989898; }
+
+    .tumblelog_entries .entry .body,
+    .tumblelog_entries entry .date { color: #f5f2f2; }
+
+/************************
+/* Comments Styling */
+/***********************/
+
+.comments { margin: 0; }
+
+    .comments .status { 
+        background-image: url(images/blue_comment_bubble.png);
+        background-repeat: no-repeat;
+        background-position: 0 -19px;
+        text-indent: 20px;
+    }
+    .comments .status:hover {
+        background-position: 0 0;
+    }
+    .comments form { overflow: hidden; }
+
+    .comments form label { clear: both; }
+    
+    .comments form #comment textarea { height: 300px; }
+    
+    .comments form #honeypot { display: none; }
+
+.comment {
+    border-bottom: 1px solid silver; 
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    width: 600px;
+}
+
+    .comment.last { border-bottom: 0px; }
+
+    .comment dt { 
+        float: left; 
+        padding-right: 10px;
+    }
+    .comment dt.comment-text { float: none; }
+/************************
+/* Author Pages */
+/***********************/
+#primary.authors {
+    width: 500px;
+}
+#primary.authors img {
+    float: right;
+    padding: 0 0 10px 10px;
+}
+#primary.authors .author-list {
+    font-size: 1.4em;
+}
+#author-bio {
+    font-family:georgia,times,"Times New Roman",serif;
+    font-size:1.4em;
+}
+/************************
+/* Pagination          */
+/***********************/
+
+.pagination {
+    font-size: 1.4em;
+}
+.pagination a img { vertical-align: middle; }

@@ -1,0 +1,13 @@
+body {
+    background-color: #a1c6d4;
+    background-image: none;
+}
+
+#primary { 
+    padding-top: 220px; 
+    width: 500px;
+}
+.archive-title {
+    font-size:1.4em;
+    margin-bottom:17px;
+}
