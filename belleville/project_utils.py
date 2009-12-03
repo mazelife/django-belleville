@@ -95,4 +95,3 @@ StartupHookRegistry.register(
         'django.contrib.humanize.templatetags.humanize'
     )
 )
-

@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta 
+
 from django.core.urlresolvers import reverse
 from django.test import TestCase    
 
@@ -68,6 +70,31 @@ class BlogTest(TestCase):
         response = self.client.get(entry.get_absolute_url())
         self.assertTrue(response.status_code == 200)
 
+    def test_comments_logic(self):
+        """
+        Verify that comments are closed as expected
+        """
+        pub_state = BloggingSettings.PUBLISHED_ENTRY_STATES[0]
+        # Create a published entry, set 'comments_allowed' off:
+        entry = BlogEntry(
+            slug='test-comments-entry',
+            headline='Headline TKTK',
+            intro='Loren ipsum...',
+            author=Author.objects.all()[0], #any author is fine...
+            status=pub_state,
+            allow_comments=False
+        )
+        entry.save()
+        self.assertTrue(entry.allow_comments == False)
+        entry.allow_comments = True
+        entry.save()
+        self.assertTrue(entry.comments_enabled)
+        # Now set date to just before BloggingSettings.DAYS_COMMENTS_OPEN:
+        pd = entry.pub_date - timedelta(BloggingSettings.DAYS_COMMENTS_OPEN + 1)
+        entry.pub_date = pd
+        entry.save()
+        self.assertTrue(entry.comments_enabled == False)        
+
 class TumblelogTest(TestCase):
 
     fixtures = ['test_data.json']
@@ -129,7 +156,7 @@ class TumblelogTest(TestCase):
         # Should be visible:
         response = self.client.get(entry.get_absolute_url())
         self.assertTrue(response.status_code == 200)
-
+        
 class SiteIndexTest(TestCase):
 
     fixtures = ['test_data.json']

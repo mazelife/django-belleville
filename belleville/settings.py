@@ -68,7 +68,8 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 TEMPLATE_CONTEXT_PROCESSORS = TEMPLATE_CONTEXT_PROCESSORS + (
     "context_processors.site_preferences",
-    "context_processors.breadcrumb"
+    "context_processors.breadcrumb",
+    "context_processors.main_nav"
 )
 
 ROOT_URLCONF = 'belleville.urls'
@@ -104,6 +105,12 @@ AUTH_PROFILE_MODULE = 'author.Author'
 # django-tagging app settings:
 FORCE_LOWERCASE_TAGS = True
 MAX_TAG_LENGTH = 100
+
+MAIN_NAV_REGISTRY = {
+    'blogging.tumblelog_views': 'tumblelog',
+    'blogging.blog_views': 'blog',
+    'authors.views': 'about'
+}
 
 try:
     from local_settings import *

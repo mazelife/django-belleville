@@ -1,8 +1,10 @@
 from datetime import date
 
 from django.contrib.humanize.templatetags.humanize import ordinal
+from django.core import urlresolvers
 from django.shortcuts import get_object_or_404
 from django.views.generic import list_detail, date_based, simple
+
 
 from project_utils import annotate, get_page
 from site_preferences.utils import get_cached_site_prefs
@@ -31,9 +33,13 @@ def entry_detail(request, year=None, month=None, day=None, slug=None):
         pub_date__day=day,
         slug=slug
     )
+    admin_url = urlresolvers.reverse(
+        'admin:blogging_blogentry_change', 
+        args=(entry.id,)
+    )
     return simple.direct_to_template(request, 
         template="blogging/blog_entry_detail.html",
-        extra_context={'entry': entry}
+        extra_context={'entry': entry, 'admin_url': admin_url}
     )
 
 @annotate(breadcrumb="Archive")

@@ -5,6 +5,7 @@ from django.http import Http404
 from django.utils.http import urlquote
 
 from site_preferences.utils import get_cached_site_prefs
+from settings import MAIN_NAV_REGISTRY
 
 def site_preferences(request):
     """
@@ -13,6 +14,20 @@ def site_preferences(request):
     DB lookup for every request, we'll cache site preferences by site ID.
     """
     return {'site_preferences': get_cached_site_prefs()}
+
+def main_nav(request):
+    view_func = urlresolvers.resolve(request.path)[0]
+    nav_item =  MAIN_NAV_REGISTRY.get(view_func.__module__)
+    return {'active_main_nav': nav_item}
+    
+class Breadcrumb(list):
+    """
+    A class that extends the standard list type to provide additional help
+    to users at the template level.
+    """
+    @property
+    def has_single_crumb(self):
+        return self.__len__() == 1
 
 def breadcrumb(request):
     """
@@ -54,4 +69,7 @@ def breadcrumb(request):
     [urls.remove(url) for url in crumblessViews]
     if BREADCRUMB_IGNORE_PATH:
         urls = [BREADCRUMB_IGNORE_PATH + url for url in urls]
-    return {'breadcrumb': zip(urls, breadcrumbs)}       
+    return {
+        'breadcrumb': Breadcrumb(zip(urls, breadcrumbs)),
+        
+    }
