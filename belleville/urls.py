@@ -11,3 +11,16 @@ urlpatterns = patterns('',
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^admin/', include(admin.site.urls)),
 )
+
+
+from blogging.feeds import BlogFeed, TumblelogFeed
+
+feeds = {
+    'blog': BlogFeed,
+    'tumblelog': TumblelogFeed,
+}
+
+urlpatterns += patterns('', 
+    (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed',
+        {'feed_dict': feeds}),
+)

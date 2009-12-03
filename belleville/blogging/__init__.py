@@ -1,3 +1,7 @@
 import tagging
 from models import BlogEntry
-tagging.register(BlogEntry)
+
+try:
+    tagging.register(BlogEntry)
+except tagging.AlreadyRegistered:
+    pass
