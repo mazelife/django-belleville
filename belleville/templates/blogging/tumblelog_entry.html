@@ -1,7 +1,7 @@
 {%with forloop as is_list_view%}
 <div class="entry">
     {%if is_list_view%}<h2><a href="{{entry.get_absolute_url}}">{{entry.title|safe}}</a></h2>
-    {%else%}<h2>{{entry.title|safe}}</h2>
+    {%else%}<h1>{{entry.title|safe}}</h1>
     {%endif%}
 <div class="date">{{entry.pub_date|date:'F'}} <span>{{entry.pub_date|date:'j'}}</span>, {{entry.pub_date|date:'Y'}}</div>
     <div class="body">{{entry.post|safe}}</div>

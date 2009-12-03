@@ -1,11 +1,11 @@
-{%extends "base.html" %}
+{%extends "blogging/base_blog.html" %}
 {%block title%}
     {{site_preferences.blog_title}} Archive: 
     {%ifequal archive_type 'year'%}{{date|date:"Y"}}{%endifequal%}
     {%ifequal archive_type 'month'%}{{date|date:"F Y"}}{%endifequal%}
     {%ifequal archive_type 'day'%}{{date|date:"F j, Y"}}{%endifequal%}
 {%endblock%}
-{%block body%}
+{%block primary%}
 <h3 class="archive-title">
 {{entry_list|length}} blog post{{entry_list|pluralize}} from 
 {%ifequal archive_type 'year'%}{{date|date:"Y"}}{%endifequal%}

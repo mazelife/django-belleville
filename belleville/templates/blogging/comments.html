@@ -1,13 +1,14 @@
 {% load comments %}
 {% get_comment_count for entry as comment_count %}
 <div class="comments">
-    {%if is_list_view%}
-    <p class="status" style="background-image: url({{MEDIA_URL}}images/comment.png);">There {{comment_count|pluralize:"is,are"}} <a href="{{entry.get_absolute_url}}#comments">{{comment_count}} comment{{comment_count|pluralize}}</a> for this post.</p>
-    {%else%}
-    {% get_comment_list for entry as comment_list %}
-    {% get_comment_form for entry as comment_form %}
+{%if is_list_view%}
+{%comment%}SHORT COMMENTS DISPLAY{%endcomment%}
+    <p class="status">There {{comment_count|pluralize:"is,are"}} <a href="{{entry.get_absolute_url}}#comments">{{comment_count}} comment{{comment_count|pluralize}}</a> for this post.</p>
+{%else%}
+{%comment%}FULL COMMENTS DISPLAY{%endcomment%}
+    {% get_comment_list for entry as comment_list %}{% get_comment_form for entry as comment_form %}
     <h3>comments:</h3>
-    {%if entry.comments_allowed%}
+{%if entry.comments_enabled%}
     <form id="comments" action="{% comment_form_target %}" method="post">{% csrf_token %}
     {% for field in comment_form %}
         {%if field.is_hidden%}{{field}}{%else%}
@@ -18,10 +19,10 @@
         <br style="clear: both">
         <input type="submit" name="preview" class="submit-post" value="Preview">
     </form>
-    <p class="status" style="background-image: url({{MEDIA_URL}}images/comment.png);">There {{comment_count|pluralize:"is,are"}} {{comment_count}} comment{{comment_count|pluralize}} for this post:</p>    
-    {%else%}
-    <p class="status" style="background-image: url({{MEDIA_URL}}images/comment.png);">Comments are closed for this entry. {%if comment_count%}There {{comment_count|pluralize:"is,are"}} {{comment_count}} comment{{comment_count|pluralize}} for this post:{%endif%}</p>        
-    {%endif%}
+    <p class="status">There {{comment_count|pluralize:"is,are"}} {{comment_count}} comment{{comment_count|pluralize}} for this post:</p>    
+{%else%}
+    <p class="status comments-closed">Comments are closed for this entry. {%if comment_count%}There {{comment_count|pluralize:"is,are"}} {{comment_count}} comment{{comment_count|pluralize}} for this post:{%endif%}</p>        
+{%endif%}
     {%for comment in comment_list%}<dl class="comment {%cycle 'odd' 'even'%}{%if forloop.last%} last{%endif%}">
         <dt>user:</dt>
         <dd>

@@ -1,6 +1,6 @@
-{%extends "base.html" %}
+{%extends "blogging/base_blog.html" %}
 {%block title%}{{site_preferences.blog_title}}{%endblock%}
-{%block body%}
+{%block primary%}
 {%for entry in entry_list%}
     {%include 'blogging/blog_entry.html'%}
 {%endfor%}

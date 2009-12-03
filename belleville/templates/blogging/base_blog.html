@@ -1,0 +1,8 @@
+{%extends "base.html" %}
+{%block head%}
+<link rel="stylesheet" href="{{MEDIA_URL}}styles/blog.css" type="text/css" media="all">
+{%endblock%}    
+{%block body%}
+<div id="primary" class="blog_entries">{%block primary%}{%endblock%}</div>
+<div id="secondary">{%block secondary%}{%endblock%}</div>
+{%endblock%}

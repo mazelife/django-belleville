@@ -1,5 +1,10 @@
-{%extends "base.html" %}
+{%extends "blogging/base_blog.html" %}
 {%block title%}{{entry.headline}}{%endblock%}
-{%block body%}
+{%block primary%}
 {%include 'blogging/blog_entry.html'%}
+<script type="text/javascript">
+admin = function() {
+    window.location = "{{admin_url}}";
+}
+</script>
 {%endblock%}

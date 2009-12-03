@@ -1,9 +1,15 @@
 {%extends "base.html" %}
 {%block title%}Authors{%endblock%}
+{%block head%}
+<link rel="stylesheet" href="{{MEDIA_URL}}styles/blog.css" type="text/css" media="all">
+{%endblock%}    
 {%block body%}
-<h1>{{author}}</h1>
-<div id="author-bio">
-{%if author.photo%}<img id="author-photo" src="{{author.photo.url}}" title="{{author}}'s Photo" width="{{author.photo.width}}" height="{{author.photo.height}}">{%endif%}
-{{author.bio|safe}}
+<div id="primary" class="authors">
+    <h1>{{author}}</h1>
+        <div id="author-bio">
+        {%if author.photo%}<img id="author-photo" src="{{author.photo.url}}" title="{{author}}'s Photo" width="{{author.photo.width}}" height="{{author.photo.height}}">{%endif%}
+        {{author.bio|safe}}
+        </div>
 </div>
+<div id="secondary"></div>
 {%endblock%}

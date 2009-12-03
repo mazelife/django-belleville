@@ -1,9 +1,15 @@
 {%with forloop as is_list_view%}
 <div class="entry">
-    {%if is_list_view%}<h2><a href="{{entry.get_absolute_url}}">{{entry.headline|safe}}</a></h2>
-    {%else%}<h1>{{entry.headline|safe}}</h1>{%endif%}
-    <div class="date">{{entry.pub_date|date:'F'}} <span>{{entry.pub_date|date:'j'}}</span>, {{entry.pub_date|date:'Y'}}</div>
-    
+{%if is_list_view%}
+    {%if forloop.first%}
+    <h1><a href="{{entry.get_absolute_url}}">{{entry.headline|safe}}</a></h1>
+    {%else%}
+    <h2><a href="{{entry.get_absolute_url}}">{{entry.headline|safe}}</a></h2>
+    {%endif%}
+{%else%}
+    <h1>{{entry.headline|safe}}</h1>
+{%endif%}
+    <div class="date">{{entry.pub_date|date:'F'}} <span>{{entry.pub_date|date:'j'}}</span>, {{entry.pub_date|date:'Y'}}</div>    
     <div class="body" id="above-fold">
     {{entry.intro|safe}}
     </div>
@@ -11,8 +17,11 @@
     <div class="body" id="below-fold">
     {{entry.body|safe}}
     </div>
-    {%include 'blogging/tag_list.html'%}
     {%endif%}
+    <div class="meta">
+    {%include 'blogging/tag_list.html'%}
+    {%include 'blogging/comments.html'%}
+    </div>
 </div>
-{%include 'blogging/comments.html'%}
+
 {%endwith%}

@@ -1,7 +1,14 @@
 {%extends "base.html" %}
 {%block title%}Authors{%endblock%}
+{%block head%}
+<link rel="stylesheet" href="{{MEDIA_URL}}styles/blog.css" type="text/css" media="all">
+{%endblock%}    
 {%block body%}
-<ul>{%for author in author_list%}
+<div id="primary" class="authors">
+<h1>Site Authors</h1>
+<ul class="author-list">{%for author in author_list%}
     <li><a href="{{author.get_absolute_url}}">{{author}}</a></li>
 {%endfor%}</ul>
+</div>
+<div id="secondary"></div>
 {%endblock%}
