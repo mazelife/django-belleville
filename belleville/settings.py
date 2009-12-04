@@ -94,10 +94,10 @@ INSTALLED_APPS = (
     'site_preferences',
     'authors',
     'blogging',
-    #'blogging',
     # Third party apps:
     'south',
-    'tagging'
+    'tagging',
+    'pierre.site_search'
 )
 
 AUTH_PROFILE_MODULE = 'author.Author'

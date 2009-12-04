@@ -1,0 +1,38 @@
+{%extends "base.html" %}
+{%block title%}Search{%endblock%}
+{%block head%}
+<link rel="stylesheet" href="{{MEDIA_URL}}styles/blog.css" type="text/css" media="all">
+<style type="text/css">
+    .search form { padding: 20px 0; }
+    .search form, .search input { overflow: hidden; }
+    .search button { margin-top: 10px; }
+</style>
+{%endblock%}    
+{%block body%}
+<div id="primary" class="search">
+    <h1>Search{%if query_string%}ing for "{{query_string}}"{%endif%}</h1>
+    <form action="{%url pierre.site_search.views.index%}" method="get">
+        <input type="text" name="query" size="60"{%if query_string%} value="{{query_string}}"{%endif%}>
+        <button type="submit">Search</button>
+    </form>
+{%if results%}
+    <div id="sorts">
+        <h2>Sort results by:</h2>
+        <ul>
+        {%for sort in sorts%}
+            <li class="search-sort"><a href="{{sort.qs}}"{%if sort.active%}class="active"{%endif%}>{{sort.name}}</a></li>
+        {%endfor%}
+        </ul>
+    </div>
+    {%for result in results%}
+    <div class="search-result">
+        <h2><a href="{{result.url}}">{{result.title|safe}}</a></h2>
+        {%if result.date%}<h3>{{result.date|naturalday}}</h3>{%endif%}
+        {%if result.description%}<p>{{result.description|safe}}</p>{%endif%}
+    </div>
+    {%endfor%}
+{%else%}
+    <div class="search-result">No results found for "{{query_string}}"</div>
+{%endif%}
+</div>
+{%endblock%}

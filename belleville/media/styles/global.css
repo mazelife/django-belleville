@@ -171,6 +171,7 @@ h2.section_title { display: none; }
     line-height: 26px;
     margin-bottom: 20px;
 }
+.search-result,
 .entry {
     margin-bottom: 60px; 
 }
@@ -183,7 +184,7 @@ h2.section_title { display: none; }
             color: #af2424;
             font-weight: bold;
         }
-        
+    .search-result,    
     .entry .body {
         font-family: georgia, times, "Times New Roman", serif; 
         font-size: 1.4em;
@@ -278,3 +279,16 @@ h2.section_title { display: none; }
     font-size: 1.4em;
 }
 .pagination a img { vertical-align: middle; }
+
+/************************
+/* Search Results  */
+/***********************/
+
+#sorts {
+    position: absolute;
+    left: 20px;
+    font-size: 1.4em;
+}    
+    #sorts h2 { color: #fff; font-size: 1.4em;}
+    
+    #sorts a.active { font-weight: bold }

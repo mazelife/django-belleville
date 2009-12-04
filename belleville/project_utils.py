@@ -95,3 +95,6 @@ StartupHookRegistry.register(
         'django.contrib.humanize.templatetags.humanize'
     )
 )
+
+from pierre import site_search
+StartupHookRegistry.register(site_search.autodiscover)
