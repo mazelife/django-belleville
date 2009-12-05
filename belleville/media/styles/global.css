@@ -222,6 +222,11 @@ h2.section_title { display: none; }
 /***********************/
 
 .comments { margin: 0; }
+    
+    .comments h4 {
+        margin: 25px 0 10px 0; 
+        font-size: 1.4em; 
+    }
 
     .comments .status { 
         background-image: url(images/blue_comment_bubble.png);
@@ -229,22 +234,46 @@ h2.section_title { display: none; }
         background-position: 0 -19px;
         text-indent: 20px;
     }
-    .comments .status:hover {
-        background-position: 0 0;
+    .comments .status:hover { background-position: 0 0; }
+    
+        .comments.full .status {
+            font-size: 1.4em;
+            background-position: 0 -18px;
+            line-height: 1.3em;
+        }
+        
+        .comments.full .status:hover { background-position: 0 1px; }
+        
+    .comments form { 
+        margin-bottom: 20px;
+        overflow: hidden; 
     }
-    .comments form { overflow: hidden; }
 
-    .comments form label { clear: both; }
+    .comments form textarea,
+    .comments form input { border: 0px; padding: 4px; }
+    .comments form label { clear: both; margin-bottom: 5px;}
     
-    .comments form #comment textarea { height: 300px; }
-    
+    .comments form #comment textarea { height: 450px; }
+   
     .comments form #honeypot { display: none; }
+    
+    .comments button.submit-post { margin: 10px 0 0 0; }
+    
+    .comments.preview blockquote { background: #cde4ec; padding: 20px}
+    
+    .commetns form .errors { border: 2px solid red; }
 
 .comment {
-    border-bottom: 1px solid silver; 
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    width: 600px;
+    border-bottom: 1px solid white; 
+    margin-top: 20px;
+    padding: 10px;
+    width: 560px;
+}
+
+.comment.registered {
+    background: #cde4ec;
+    border-bottom: 0px;
+
 }
 
     .comment.last { border-bottom: 0px; }
@@ -281,9 +310,23 @@ h2.section_title { display: none; }
 .pagination a img { vertical-align: middle; }
 
 /************************
+/* Tagging          */
+/***********************/
+
+.tags {}
+
+/************************
 /* Search Results  */
 /***********************/
 
+#search-box {
+    border: 0px;
+    padding: 2px 4px;
+    left: 871px;
+    position: absolute; 
+    top: 16px;
+}
+#search-box-submit {display: none; }
 #sorts {
     position: absolute;
     left: 20px;

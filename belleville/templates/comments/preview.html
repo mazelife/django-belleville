@@ -1,0 +1,35 @@
+{% extends "blogging/base_blog.html" %}
+{% load i18n %}
+{% block title %}{% trans "Preview your comment" %}{% endblock %}
+{% block primary %}
+  {% load comments %}
+  <div class="comments full preview">
+  <form action="{% comment_form_target %}" method="post">{% csrf_token %}
+    {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+    {% if form.errors %}
+    <h1>{% blocktrans count form.errors|length as counter %}Please correct the error below{% plural %}Please correct the errors below{% endblocktrans %}</h1>
+    {% else %}
+    <h1>{% trans "Preview your comment:" %}</h1>
+      <blockquote>{{ comment|linebreaks }}</blockquote>
+      <p>
+      {% trans "and" %} <button type="submit" name="submit" class="submit-post" value="{% trans "Post" %}">{% trans "Post" %}</button> {% trans "or make changes" %}:
+      </p>
+    {% endif %}
+    {% for field in form %}
+    {% if field.is_hidden %}
+        {{ field }}
+    {% else %}
+        {% ifequal field.name "honeypot" %}<div style="display:none;">{{ field.label_tag }} {{ field }}</div>
+        {%else%}
+        <label id="{{field.html_name}}" class="{%ifequal field.html_name 'comment'%} multilinex6{%endifequal%} unitx4">{{field.label}}:&nbsp;{{field}}</label>{%if field.errors%}{%endif%}
+        {% if field.errors %}<p class="errors">{{ field.errors }}</p>{% endif %}]
+        {% endifequal %}
+    {% endif %}
+    {% endfor %}
+    <p class="submit">
+    <button type="submit" name="submit" class="submit-post" value="{% trans "Post" %}">{% trans "Post" %}</button>
+    <button type="submit" name="preview" class="submit-preview" value="{% trans "Preview" %}">{% trans "Preview" %}</button>
+    </p>
+  </form>
+  </div>
+{% endblock %}

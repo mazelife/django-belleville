@@ -34,7 +34,25 @@
             "email": "dave@jazzbass.com", 
             "date_joined": "2009-11-18 18:33:04"
         }
-    }, 
+    },
+    {
+        "pk": 3, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "testuser", 
+            "first_name": "Test", 
+            "last_name": "User", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2009-11-18 18:32:01", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$7d37b$34d08893d216032c7261121f654714e80c9ab138", 
+            "email": "test@jazzguitar.net", 
+            "date_joined": "2009-11-18 18:32:01"
+        }
+    },    
     {
         "pk": 1, 
         "model": "authors.author", 
@@ -54,5 +72,16 @@
             "user": 2, 
             "slug": "dave-holland"
         }
+    },
+    {
+        "pk": 3, 
+        "model": "authors.author", 
+        "fields": {
+            "bio": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet dolor non velit ornare pharetra. Fusce tristique, dui in viverra interdum, est nibh feugiat metus, id vehicula tortor tortor et risus. Proin varius justo vehicula dui sollicitudin eget facilisis magna semper. Pellentesque et nunc nunc, quis rhoncus enim. Fusce blandit eros at nisl commodo sollicitudin blandit mauris pulvinar. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi euismod vulputate mauris ut tincidunt. Quisque neque odio, aliquet malesuada volutpat non, condimentum quis nisl. Curabitur laoreet lacus velit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris posuere ante at tellus iaculis tempus. Nulla sit amet quam odio, non vulputate magna. Donec convallis augue quis lacus condimentum sollicitudin. Aliquam eu risus nec sem eleifend ultricies at vitae quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam euismod nisi in libero congue tristique. </p>", 
+            "photo": "", 
+            "user": 3, 
+            "slug": "test-user"
+        }
     }
+    
 ]

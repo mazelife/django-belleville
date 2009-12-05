@@ -1,30 +1,32 @@
 {% load comments %}
 {% get_comment_count for entry as comment_count %}
-<div class="comments">
+
 {%if is_list_view%}
 {%comment%}SHORT COMMENTS DISPLAY{%endcomment%}
+    <div class="comments">
     <p class="status">There {{comment_count|pluralize:"is,are"}} <a href="{{entry.get_absolute_url}}#comments">{{comment_count}} comment{{comment_count|pluralize}}</a> for this post.</p>
 {%else%}
 {%comment%}FULL COMMENTS DISPLAY{%endcomment%}
+    <div class="comments full">
     {% get_comment_list for entry as comment_list %}{% get_comment_form for entry as comment_form %}
-    <h3>comments:</h3>
+    <h4 id="comments">Leave a comment:</h4>
 {%if entry.comments_enabled%}
-    <form id="comments" action="{% comment_form_target %}" method="post">{% csrf_token %}
+    <form action="{% comment_form_target %}" method="post">{% csrf_token %}
     {% for field in comment_form %}
         {%if field.is_hidden%}{{field}}{%else%}
-        <label id="{{field.html_name}}" class="{%ifequal field.html_name 'comment'%} multilinex6{%endifequal%} unitx4">{{field.label}}&nbsp;{{field}}</label>{%if field.errors%}<span class="errors">{{field.errors}}<span>{%endif%}
+        <label id="{{field.html_name}}" class="{%ifequal field.html_name 'comment'%} multilinex6{%endifequal%} unitx4">{{field.label}}:&nbsp;{{field}}</label>{%if field.errors%}<span class="errors">{{field.errors}}<span>{%endif%}
         {%endif%}
     {% endfor %}
         <input type="hidden" name="next" value="{{entry.get_absolute_url}}">
         <br style="clear: both">
-        <input type="submit" name="preview" class="submit-post" value="Preview">
+        <button type="submit" name="preview" class="submit-post" value="Preview">Preview</button>
     </form>
     <p class="status">There {{comment_count|pluralize:"is,are"}} {{comment_count}} comment{{comment_count|pluralize}} for this post:</p>    
 {%else%}
     <p class="status comments-closed">Comments are closed for this entry. {%if comment_count%}There {{comment_count|pluralize:"is,are"}} {{comment_count}} comment{{comment_count|pluralize}} for this post:{%endif%}</p>        
 {%endif%}
-    {%for comment in comment_list%}<dl class="comment {%cycle 'odd' 'even'%}{%if forloop.last%} last{%endif%}">
-        <dt>user:</dt>
+    {%for comment in comment_list%}<dl class="comment {%cycle 'odd' 'even'%}{%if forloop.last%} last{%endif%}{%if comment.user%} registered{%endif%}">
+        <dt>name:</dt>
         <dd>
         {%if comment.user_url%}
         <a href="{{comment.user_url}}" rel="nofollow">{{comment.user_name}}</a>
