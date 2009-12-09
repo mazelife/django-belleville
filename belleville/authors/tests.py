@@ -45,9 +45,9 @@ class AuthorTest(TestCase):
         new_author = Author(user=new_user, slug="testusername")
         new_author.save()
         # If no user first/last name, show username:
-        self.failUnlessEqual(new_author.__repr__(), 'testusername')
+        self.failUnlessEqual(new_author.__unicode__(), 'testusername')
         new_user.first_name = "Test"
         new_user.last_name = "User"
         new_user.save()
         # Now shoudl be full name:
-        self.failUnlessEqual(new_author.__repr__(), 'testusername')
+        self.failUnlessEqual(new_author.__unicode__(), 'Test User')
