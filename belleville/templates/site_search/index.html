@@ -25,14 +25,18 @@
         </ul>
     </div>
     {%for result in results%}
-    <div class="search-result">
+    <div class="search-result entry">
         <h2><a href="{{result.url}}">{{result.title|safe}}</a></h2>
-        {%if result.date%}<h3>{{result.date|naturalday}}</h3>{%endif%}
+        {%if result.date%}
+        <div class="date">{{result.date|date:'F'}} <span>{{result.date|date:'j'}}</span>, {{result.date|date:'Y'}}</div>
+        {%endif%}
+        <div class="body">
         {%if result.description%}<p>{{result.description|safe}}</p>{%endif%}
+        </div>
     </div>
     {%endfor%}
 {%else%}
-    <div class="search-result">No results found for "{{query_string}}"</div>
+    <div class="search-result none">No results found for "{{query_string}}"</div>
 {%endif%}
 </div>
 {%endblock%}

@@ -121,16 +121,19 @@ h2 {
     font-size: 1.8em;
 }
 
-h1 a, h2 a {
+h1 a, h2 a,
+h1 a:hover, h2 a:hover {
     color: #fff;
 }
 
 /* Link Colors */
 
-a { }
-a:hover { }
-a:active { }
-a:visited { }
+a { color: #8a7816; }
+a:hover { color: #8a7816; text-decoration: underline; }
+a:active { color: #ae2f30; }
+a:visited {  }
+
+
 
 /************************
 /* Index Page Headings */
@@ -184,7 +187,7 @@ h2.section_title { display: none; }
             color: #af2424;
             font-weight: bold;
         }
-    .search-result,    
+    .search-result .body,    
     .entry .body {
         font-family: georgia, times, "Times New Roman", serif; 
         font-size: 1.4em;
@@ -200,6 +203,7 @@ h2.section_title { display: none; }
 #breadcrumb {
     position: absolute;
     top: 175px;
+    font-size: 1.1em;
 }
 #breadcrumb a { color: #fafafa; }
 
@@ -251,7 +255,7 @@ h2.section_title { display: none; }
 
     .comments form textarea,
     .comments form input { border: 0px; padding: 4px; }
-    .comments form label { clear: both; margin-bottom: 5px;}
+    .comments form label { clear: both; margin-top: 5px;}
     
     .comments form #comment textarea { height: 450px; }
    
@@ -259,9 +263,15 @@ h2.section_title { display: none; }
     
     .comments button.submit-post { margin: 10px 0 0 0; }
     
+    .comments.preview { font-size: 1.4em; }
+    
     .comments.preview blockquote { background: #cde4ec; padding: 20px}
     
-    .commetns form .errors { border: 2px solid red; }
+    .comments.preview h1 { line-height: 2.4em; }
+    
+    .comments form .errorlist { color: red; }
+    
+    
 
 .comment {
     border-bottom: 1px solid white; 
@@ -284,7 +294,7 @@ h2.section_title { display: none; }
     }
     .comment dt.comment-text { float: none; }
 /************************
-/* Author Pages */
+/* Author + Tag Pages */
 /***********************/
 #primary.authors {
     width: 500px;
@@ -293,6 +303,7 @@ h2.section_title { display: none; }
     float: right;
     padding: 0 0 10px 10px;
 }
+#primary.tags .tag-list,
 #primary.authors .author-list {
     font-size: 1.4em;
 }
@@ -300,6 +311,14 @@ h2.section_title { display: none; }
     font-family:georgia,times,"Times New Roman",serif;
     font-size:1.4em;
 }
+
+.tags.full { font-size: 1.4em; }
+
+.tags.full h2 { margin: 20px 0; }
+
+.tags.full li { padding-bottom: 10px; }
+
+
 /************************
 /* Pagination          */
 /***********************/
@@ -326,6 +345,7 @@ h2.section_title { display: none; }
     position: absolute; 
     top: 16px;
 }
+.search form { margin-bottom: 20px; }
 #search-box-submit {display: none; }
 #sorts {
     position: absolute;
@@ -335,3 +355,5 @@ h2.section_title { display: none; }
     #sorts h2 { color: #fff; font-size: 1.4em;}
     
     #sorts a.active { font-weight: bold }
+    
+    .search-result.none { font-size: 1.4em; }

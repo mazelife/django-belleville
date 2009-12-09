@@ -1,0 +1,25 @@
+{%extends "base.html" %}
+{%block title%}{{tag}}{%endblock%}
+{%block head%}
+<link rel="stylesheet" href="{{MEDIA_URL}}styles/tumblelog.css" type="text/css" media="all">
+{%endblock%}
+{%block body%}
+
+<div id="primary" class="tags full">
+    <h1>tag: {{tag}}</h1>
+    {%if blog_entry_list%}
+    <h2>Blog entries tagged with "{{tag}}"</h2>
+    <ul>
+        {%for entry in blog_entry_list%}<li><a href="{{entry.get_absolute_url}}">{{entry.headline|safe}}</a></li>{%endfor%}
+    </ul>
+    {%endif%}
+    {%if tumblelog_entry_list%}
+    <h2>Tubmlelog etries tagged with "{{tag}}"</h2>
+    <ul>
+        {%for entry in tumblelog_entry_list%}<li><a href="{{entry.get_absolute_url}}">{{entry.title|safe}}</a></li>{%endfor%}
+    </ul>
+    {%else%}
+    <h2>No blog or tumbelog posts use this tag.</h2>
+    {%endif%}
+</div>
+{%endblock%}

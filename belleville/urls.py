@@ -10,6 +10,8 @@ urlpatterns = patterns('',
     (r'^authors/', include('authors.urls', namespace="authors")),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^search/', 'pierre.site_search.views.index'),
+    url(r'^tags/$', 'tagging_views.tag_list', name="tag_list"),
+    url(r'^tags/(?P<slug>[\w-]+)/$', 'tagging_views.tag_detail', name="tag_detail"),
     (r'^admin/', include(admin.site.urls)),
 )
 

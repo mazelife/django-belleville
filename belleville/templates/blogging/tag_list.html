@@ -1,3 +1,3 @@
 {%if entry.tags%}
-<div class="tags">Tagged with: {%for tag in entry.tags%}<a href="{{tag.get_absolute_url}}">{{tag.name}}</a>{%if not forloop.last%}, {%endif%}{%endfor%}.</div>
+<div class="tags">Tagged with: {%for tag in entry.tags%}<a href="{%url tag_detail tag.name%}">{{tag.name}}</a>{%if not forloop.last%}, {%endif%}{%endfor%}.</div>
 {%endif%}

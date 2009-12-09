@@ -5,5 +5,9 @@
     {%endif%}
 <div class="date">{{entry.pub_date|date:'F'}} <span>{{entry.pub_date|date:'j'}}</span>, {{entry.pub_date|date:'Y'}}</div>
     <div class="body">{{entry.post|safe}}</div>
+    <div class="meta">
+    {%include 'blogging/tag_list.html'%}
+    </div>
 </div>
+
 {%endwith%}

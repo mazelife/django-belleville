@@ -10,32 +10,7 @@
     <link rel="alternate" type="application/rss+xml" title="Blog Entry Feed" href="/feeds/blog/">
     <link rel="alternate" type="application/rss+xml" title="Tumblelog Entry Feed" href="/feeds/tumblelog/">
     <script src="{{MEDIA_URL}}scripts/jquery.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        var min_width = 1422;
-        var currently_positioned = null;
-        $(window).resize(set_body_class);
-        $(document).ready(function() { currently_positioned = set_body_class(); });
-        function set_body_class() {
-            var page_width = $(window).width()
-            var is_positioned = page_width  < min_width
-            if (is_positioned && !currently_positioned) { 
-                $("body").addClass('background_positioned');
-                currently_positioned = true;
-            }
-            if (!is_positioned && currently_positioned) {
-                $("body").removeClass('background_positioned');
-                currently_positioned = false;
-            }
-            return is_positioned
-        }
-
-        $(document).ready(function () {$("#search-box").click(clear_search_box);})
-        function clear_search_box() {
-            box = $(this);
-            if (box.attr("value") == "search") box.attr("value", "");
-        }
-        
-    </script>
+    <script type="text/javascript" src="{{MEDIA_URL}}scripts/global.js"></script>
     {%block head%}{%endblock%}
 </head>
 <body>
@@ -43,7 +18,7 @@
     <div id="wrap"> 
         <div id="header">
         <form action="{%url pierre.site_search.views.index%}" method="get">
-            <input type="text" id="search-box" value="search"/>
+            <input type="text" name="query" id="search-box" value="search"/>
             <input type="submit" id="search-box-submit" accesskey="4">
         </form>
             <ul id="globalNav">

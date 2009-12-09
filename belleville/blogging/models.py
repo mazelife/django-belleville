@@ -17,7 +17,7 @@ class TumblelogEntry(models.Model):
     
     """
     slug = models.SlugField(_("Slug"))
-    title = models.TextField(_("Title"))
+    title = models.CharField(_("Title"), max_length=255)
     post = models.TextField(_("Post"), blank=True)
     author = models.ForeignKey('authors.Author', 
         related_name="tumblelog_entries"

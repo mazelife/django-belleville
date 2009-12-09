@@ -1,0 +1,13 @@
+{%extends "base.html" %}
+{%block title%}Tags{%endblock%}
+{%block head%}
+<link rel="stylesheet" href="{{MEDIA_URL}}styles/tumblelog.css" type="text/css" media="all">
+{%endblock%}
+{%block body%}
+<div id="primary" class="tags">
+<h1>Tags</h1>
+<ul class="tag-list">{%for tag, count in tag_list%}
+    <li><a href="{{tag}}">{{tag}}</a> ({{count}})</li>
+{%endfor%}</ul>
+</div>
+{%endblock%}

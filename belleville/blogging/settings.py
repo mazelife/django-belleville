@@ -27,7 +27,9 @@ class BloggingSettings:
     
     TWITTER_EMAIL = None
     TWITTER_PASSWORD = None
-
+    
+    # Number of items to store in the site's RSS feed:
+    ITEMS_IN_FEED = 20
 # Import global project settings:
 from django.conf import settings as _settings
 

@@ -1,5 +1,6 @@
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.test import TestCase    
+from django.test import TestCase
 
 from models import Author
 
@@ -33,3 +34,20 @@ class AuthorTest(TestCase):
                 self.failUnlessEqual(response.context['author'], author)
             except KeyError:
                 self.fail("Template context did not contain author object.")
+    
+    def test_author_repr(self):
+        """
+        Verify that authors are represented correctly, even when user has no 
+        first  or last name.
+        """
+        new_user = User.objects.create_user('testusername', 't@t.com', 'pass')
+        new_user.save()
+        new_author = Author(user=new_user, slug="testusername")
+        new_author.save()
+        # If no user first/last name, show username:
+        self.failUnlessEqual(new_author.__repr__(), 'testusername')
+        new_user.first_name = "Test"
+        new_user.last_name = "User"
+        new_user.save()
+        # Now shoudl be full name:
+        self.failUnlessEqual(new_author.__repr__(), 'testusername')

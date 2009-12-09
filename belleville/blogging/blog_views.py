@@ -72,7 +72,7 @@ def archive_day(request, year=None, month=None, day=None):
         extra_context={
             'archive_type': 'day', 
             'date': date(int(year), int(month), int(day))},
-        template_object_name='entry'        
+        template_object_name='entry'
     )
 
 @annotate(breadcrumb=lambda year, month: date(int(year), \

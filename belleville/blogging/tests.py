@@ -8,6 +8,7 @@ from site_preferences.utils import get_cached_site_prefs
 from models import BlogEntry, TumblelogEntry
 from settings import BloggingSettings
 from authors.models import Author
+from utils import TestData
 
 class BlogTest(TestCase):
 
@@ -27,6 +28,50 @@ class BlogTest(TestCase):
             self.fail("Template context did not contain entry_list object.")
         for entry in BlogEntry.objects.published()[:paginate_at]:
             self.assertTrue(entry in response.context['entry_list'])
+
+    def test_archive_lists(self):
+        """
+        Verify that the blog archive pages work as expected:
+        """            
+        # Verify that archive index works:
+        response = self.client.get(reverse("blog:archive_index"))
+        self.failUnlessEqual(response.status_code, 200)
+        # Get any random blog's date:
+        entry = BlogEntry.objects.published()[1]
+        response = self.client.get(reverse("blog:archive_year", kwargs={
+            'year': str(entry.pub_date.year)
+        }))
+        self.failUnlessEqual(response.status_code, 200)
+        context = BlogEntry.objects.published().filter(
+            pub_date__year=entry.pub_date.year
+        )
+        for entry in context:
+            self.assertTrue(entry in response.context['entry_list'])
+        response = self.client.get(reverse("blog:archive_month", kwargs={
+            'year': str(entry.pub_date.year),
+            'month': str(entry.pub_date.month),
+        }))
+        self.failUnlessEqual(response.status_code, 200)        
+        context = BlogEntry.objects.published().filter(
+            pub_date__year=entry.pub_date.year,
+            pub_date__month=entry.pub_date.month
+        )
+        for entry in context:
+            self.assertTrue(entry in response.context['entry_list'])
+        response = self.client.get(reverse("blog:archive_day", kwargs={
+            'year': str(entry.pub_date.year),
+            'month': str(entry.pub_date.month),
+            'day': str(entry.pub_date.day)
+        }))
+        self.failUnlessEqual(response.status_code, 200)        
+        context = BlogEntry.objects.published().filter(
+            pub_date__year=entry.pub_date.year,
+            pub_date__month=entry.pub_date.month,
+            pub_date__day=entry.pub_date.day           
+        )
+        for entry in context:
+            self.assertTrue(entry in response.context['entry_list'])
+
             
     def test_entry_detail_pages(self):
         """
@@ -93,7 +138,15 @@ class BlogTest(TestCase):
         pd = entry.pub_date - timedelta(BloggingSettings.DAYS_COMMENTS_OPEN + 1)
         entry.pub_date = pd
         entry.save()
-        self.assertTrue(entry.comments_enabled == False)        
+        self.assertTrue(entry.comments_enabled == False)
+
+    def test_rss_feed(self):
+        """Verify that RSS feed returns a 200"""
+        #FIXME: verify that feed has correct context too
+        resp= self.client.get(reverse("django.contrib.syndication.views.feed", 
+            kwargs={'url': 'blog'}
+        ))
+        self.failUnlessEqual(resp.status_code, 200)
 
 class TumblelogTest(TestCase):
 
@@ -157,8 +210,28 @@ class TumblelogTest(TestCase):
         response = self.client.get(entry.get_absolute_url())
         self.assertTrue(response.status_code == 200)
         
-class SiteIndexTest(TestCase):
+    def test_rss_feed(self):
+        """Verify that RSS feed returns a 200"""
+        #FIXME: verify that feed has correct context too
+        resp= self.client.get(reverse("django.contrib.syndication.views.feed", 
+            kwargs={'url': 'tumblelog'}
+        ))
+        self.failUnlessEqual(resp.status_code, 200)       
+        
+class TestDataGeneration(TestCase):
 
+    def create_test_blog_entries():
+        """Create 100 test blog entries"""
+        TestData.create_sample_blog_entries(count=100)
+        self.assertEqual(BlogEntry.objects.all().count(), 100)        
+
+    def create_test_tumblelogentries():
+        """Create 100 test tumblelog entries"""
+        TestData.create_sample_tumblelog_entries(count=100)
+        self.assertEqual(TumblelogEntry.objects.all().count(), 100)
+        
+class SiteIndexTest(TestCase):
+    
     fixtures = ['test_data.json']
     
     def test_index(self):

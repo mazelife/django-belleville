@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from site_preferences.utils import get_cached_site_prefs
 
 from models import BlogEntry, TumblelogEntry
+from settings import BloggingSettings as BSet
 
 class BlogFeed(Feed):
     "%s: %s" % (
@@ -14,7 +15,7 @@ class BlogFeed(Feed):
     description = "Updates to the blog."
 
     def items(self):
-        return BlogEntry.objects.published()[:20]
+        return BlogEntry.objects.published()[:BSet.ITEMS_IN_FEED]
 
 class TumblelogFeed(Feed):
     "%s: %s" % (
@@ -25,4 +26,4 @@ class TumblelogFeed(Feed):
     description = "Updates to the tumblelog."
 
     def items(self):
-        return TumblelogEntry.objects.published()[:20]
+        return TumblelogEntry.objects.published()[:BSet.ITEMS_IN_FEED]
