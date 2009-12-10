@@ -27,7 +27,7 @@ class TumblelogEntry(models.Model):
         choices=BloggingSettings.PUB_STATES,
         default=BloggingSettings.DEFAULT_PUB_STATE
     )
-    to_twitter = models.CharField(_("Post to Twitter"),
+    to_twitter = models.CharField(_("Twitter Status"),
         choices = (
             ('p', _("Post to twitter on save.")),
             ('x', _("Don't post to Twitter on save.")),

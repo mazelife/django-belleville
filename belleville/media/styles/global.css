@@ -44,18 +44,17 @@ body {
     margin: 0;
     padding: 0;
 }
-    body.background_positioned {
-        background-position: -3290px 0;    
+    body.background_repositioned {
+        background-position: -3358px 0;    
     }
 
 #wrap {
-    width: 960px; 
-    width: 1422px;
+    width: 100%;
+    min-width: 1275px;
     margin: 0px auto;
-    /*background: url(images/bg_split.gif) no-repeat center top;*/
 }
 #header {
-    width: 1422px; /* full */
+    width:1080px;
     height: 42px;
     position: relative;
 }
@@ -63,7 +62,7 @@ body {
     width: 316px;
     height: 42px;
     position: absolute;
-    left: 508px;
+    left: 450px;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", sans-serif;
     font-weight: 300;
 
@@ -94,18 +93,18 @@ body {
                     #globalNav li.nav_projects a    { width: 84px; border-right: none; }
 
 #page {
-    width: 1422px; /* full */
+    width: 100%
     margin-bottom: 90px;
 }
         #primary {
             width: 410px;
-            padding-left: 231px;
             float: left;
-            padding-top: 170px;
+            padding: 170px 127px 0 231px;
+            
         }
         #secondary {
             float:right;
-            padding-right:172px;
+            padding-right:100px;
             padding-top:145px;
             width:341px;
         }
@@ -196,6 +195,21 @@ h2.section_title { display: none; }
         margin-top: 15px;
         font-size: 1.2em; 
     }
+    
+    .entry .body p { margin: 7px 0; }
+    .entry .body pre { background: silver; padding: 5px; }
+    .entry .body ol,
+    .entry .body ul {
+        margin: 10px 0;
+    }
+    .entry .body ul li {
+    list-style-type: disc;
+    
+    }
+    .entry .body ol li {
+    list-style-type: decimal;
+    
+    } 
 
 /************************
 /* Breadcrumbs  */
@@ -341,9 +355,9 @@ h2.section_title { display: none; }
 #search-box {
     border: 0px;
     padding: 2px 4px;
-    left: 871px;
+    left: 814px;
     position: absolute; 
-    top: 16px;
+    top: 17px;
 }
 .search form { margin-bottom: 20px; }
 #search-box-submit {display: none; }

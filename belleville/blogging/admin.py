@@ -27,6 +27,21 @@ class CommentsInline(generic.GenericTabularInline):
 
 
 class BlogEntryAdmin(admin.ModelAdmin):
+    """
+    An admin site object for Blog entries.
+    """
+    date_hierarchy = 'pub_date'
+    list_display = ('headline', 'pub_date', 'author', 'status')
+    list_filter = ('author', 'status',)
+    fieldsets = (
+        (None, {
+            'fields': ('slug', 'headline', 'intro', 'body')
+        }),
+        ('Metadata', {
+            'fields': ('status', 'pub_date', 'author', 'allow_comments')
+        }),
+    )
+
     formfield_overrides = {
         models.TextField: {
             'widget' : CKEditor(ck_attrs={'height': '500px'})
@@ -39,8 +54,20 @@ class BlogEntryAdmin(admin.ModelAdmin):
 
 class TumblelogEntryAdmin(admin.ModelAdmin):
     """
-    An admin site object for Tumblelog entry. Handles posting to Twitter.
+    An admin site object for Tumblelog entries. Handles posting to Twitter.
     """
+    date_hierarchy = 'pub_date'
+    list_display = ('title', 'pub_date', 'author', 'status')
+    list_filter = ('author', 'status',)
+    fieldsets = (
+        (None, {
+            'fields': ('slug', 'title', 'post')
+        }),
+        ('Metadata', {
+            'fields': ('status', 'pub_date', 'author', 'to_twitter')
+        }),
+    )
+    
     formfield_overrides = {
         models.TextField: {
             'widget' : CKEditor(ck_attrs={'height': '350px'})
@@ -48,7 +75,7 @@ class TumblelogEntryAdmin(admin.ModelAdmin):
     }
     
     inlines = [TaggingInline]
-    
+
     class Media:
         css = {"all": ("styles/admin.css",)}    
     
