@@ -14,15 +14,15 @@ def get_cached_site_prefs(slug=None):
     avoid unecessary SQL lookups.
     """
     site = Site.objects.get_current()
-    site_prefs = cache.get(site.id)
+    site_prefs = cache.get(str(site.id))
     if not site_prefs:
         cache.set(
             site.id, 
             site.preference,
             SPEEDY_LOOKUP_TTL
         )
-        site_prefs = cache.get(site.id)
-        if not site.id:
+        site_prefs = cache.get(str(site.id))
+        if not site_prefs:
             raise CacheError((
             "Site prefs could not be cached."
             "Verify that the cache is configured and working."
