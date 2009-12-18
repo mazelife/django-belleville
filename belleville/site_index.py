@@ -14,11 +14,19 @@ from blogging.settings import BloggingSettings
 def index(request):
     """A view of the site index page"""
     tumblelogs_per_page = get_cached_site_prefs().tumblelog_entries_per_page
-    tumbelelog_entry_list = TumblelogEntry.objects.published()[:tumblelogs_per_page]
-    tumblelog_next_page = reverse("tumblelog:list") + "?page=2"
+    tumbelelog_entry_list = TumblelogEntry.objects.published()
+    if len(tumbelelog_entry_list) > tumblelogs_per_page:
+        tumbelelog_entry_list = tumbelelog_entry_list[:tumblelogs_per_page]
+        tumblelog_next_page = reverse("tumblelog:list") + "?page=2"
+    else:
+        tumblelog_next_page = None
     blogs_per_page = get_cached_site_prefs().blog_entries_per_page
-    blog_entry_list = BlogEntry.objects.published()[:blogs_per_page]    
-    blog_next_page = reverse("blog:entry_list") + "?page=2"
+    blog_entry_list = BlogEntry.objects.published()
+    if len(blog_entry_list) > blogs_per_page:
+        blog_entry_list = blog_entry_list[:blogs_per_page]
+        blog_next_page = reverse("blog:entry_list") + "?page=2"
+    else:
+        blog_next_page = None
     return simple.direct_to_template(request, 
         template = 'index.html',
         extra_context = {

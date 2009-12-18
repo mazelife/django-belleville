@@ -1,20 +1,25 @@
 {%extends "base.html" %}
-{%block title%}{{site_preferences.site_tite}}{%endblock%}
+{%block title%}{{site_preferences.site_title}}{%endblock%}
 {%block head%}
 {%endblock%}
 {%block body%}
+
 <div id="primary" class="blog_entries">
 <h2 class="section_title"><a href="{%url blog:entry_list%}">{{site_preferences.blog_title}}</a></h2>
 {%for entry in blog_entry_list%}
     {%include 'blogging/blog_entry.html'%}
 {%endfor%}
+{%if blog_next_page_link%}
 <a id="next-blog-page" href="{{blog_next_page_link}}">More blog entries &raquo;</a>
+{%endif%}
 </div>
 <div id="secondary" class="tumblelog_entries">
 <h2 class="section_title"><a href="{%url tumblelog:list%}">{{site_preferences.tumblelog_title}}</a></h2>
 {%for entry in tumblelog_entry_list%}
     {%include 'blogging/tumblelog_entry.html'%}
 {%endfor%}
+{%if tumblelog_next_page_link%}
 <a id="next-tumblelog-page" href="{{tumblelog_next_page_link}}">More tumbleblog entries &raquo;</a>
+{%endif%}
 </div>
 {%endblock%}
