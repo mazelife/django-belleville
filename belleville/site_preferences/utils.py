@@ -17,7 +17,7 @@ def get_cached_site_prefs(slug=None):
     site_prefs = cache.get(str(site.id))
     if not site_prefs:
         cache.set(
-            site.id, 
+            str(site.id), 
             site.preference,
             SPEEDY_LOOKUP_TTL
         )
