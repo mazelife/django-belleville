@@ -163,6 +163,9 @@ h2.section_title { display: none; }
     text-indent: -999px;
     margin-bottom: 35px;
 }
+
+#next-blog-page,
+#next-tumblelog-page { font-size: 1.4em; }
 /************************
 /* Blog Entry */
 /***********************/
@@ -307,6 +310,18 @@ h2.section_title { display: none; }
         padding-right: 10px;
     }
     .comment dt.comment-text { float: none; }
+
+#comment-thanks-flash {
+    background:#fff;
+    font-size:1.6em;
+    left:650px;
+    padding:25px 20px;
+    position:absolute;
+    top:150px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+}
+    
 /************************
 /* Author + Tag Pages */
 /***********************/
