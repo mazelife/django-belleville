@@ -2,8 +2,8 @@ from datetime import datetime
 from django.contrib.admin.models import LogEntry, ADDITION as ADD_ACTION_FLAG
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.utils.html import strip_tags
 from django.utils.translation import ugettext_lazy as _
-
 from settings import BloggingSettings
 from managers import BloggingEntryManager
 
@@ -90,7 +90,7 @@ class TumblelogEntry(models.Model):
             BloggingSettings.TWITTER_PASSWORD
         )
         try:
-            twitter.statuses.update(status=self.post)
+            twitter.statuses.update(status=strip_tags(self.post))
             action = "Added post to %s's twitter feed." \
                 % BloggingSettings.TWITTER_EMAIL
             return_status = True
