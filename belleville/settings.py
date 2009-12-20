@@ -95,7 +95,7 @@ INSTALLED_APPS = (
     'authors',
     'blogging',
     # Third party apps:
-    'south',
+    #'south',
     'tagging',
     'pierre.site_search'
 )
@@ -114,8 +114,8 @@ MAIN_NAV_REGISTRY = {
 
 try:
     from local_settings import *
-except ImportError:
-    pass
+except ImportError, e:
+	pass
 
 try:
     MIDDLEWARE_CLASSES += LOCAL_MIDDLEWARE_CLASSES
