@@ -1,6 +1,6 @@
 # Django settings for belleville project.
 
-DEBUG = False
+DEBUG =False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
