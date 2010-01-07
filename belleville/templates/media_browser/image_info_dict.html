@@ -1,0 +1,9 @@
+{%spaceless%}
+<dl class="image_info">
+    <dt>title:</dt><dd>{{image.title}}</dd>
+    {%if image.caption%}<dt>caption:</dt><dd>{{image.caption}}</dd>{%endif%}
+    {%if image.credit%}<dt>credit:</dt><dd>{{image.credit}}</dd>{%endif%}
+    <dt>original width:</dt><dd>{{image.width}} pixels</dd>
+    <dt>original height:</dt><dd>{{image.height}} pixels</dd>
+</dl>
+{%endspaceless%}

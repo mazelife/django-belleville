@@ -1,0 +1,39 @@
+{% extends "admin/change_list.html" %}
+{% load i18n %}
+{% block content %}
+<script src="{{MEDIA_URL}}scripts/jquery.js" type="text/javascript"></script>
+<style type="text/css">
+#header { display: none; }
+#images .image {
+    border: 1px solid silver;
+    width: 160px;
+    height: 160px;
+    text-align: center; 
+    padding-top: 5px;
+}
+#images .image:hover { background: #F4F379 }
+
+#images .image dl { display: none; }
+
+form#image_search { margin-bottom: 20px; }
+
+/* Image Options Styling */
+#image-preview {
+    float: left;
+    padding-right: 25px;
+}
+#image-preview p {
+    font-size: 10px;
+}
+h2 span { font-size: 10px; }
+
+form#resize {
+    background: #F4F379;
+    padding: 15px;
+    margin: 0 5px 10px 0px;
+    width: 260px;
+}
+.info-block { float: left; }
+</style>
+{%block browser%}{%endblock%}
+{%endblock%}

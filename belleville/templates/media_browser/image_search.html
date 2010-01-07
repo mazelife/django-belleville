@@ -1,0 +1,20 @@
+{% extends "media_browser/base.html" %}
+{%block title%}Image Search{%endblock%}
+{% block breadcrumbs %}
+<div class="breadcrumbs"> 
+    <a href="{%url media_browser:image_list%}">Image Browser</a>
+    &rsaquo; 
+    Image Search
+</div>
+{% endblock %}
+{%block browser%}
+<h2>Image Search</h2>
+<form action="{%url media_browser:image_search%}" name="image_search" id="image_search">
+    <p>Searches titles, captions and credits of images:</p>
+    <label>Search term:&nbsp;<input name="search" type="text" size="50" {%if search_term%}value="{{search_term}}"{%endif%}></label>
+    <input type="submit">
+</form>
+{%if search_term%}
+    {% include 'media_browser/image_grid.html'%}
+{%endif%}    
+{% endblock %}

@@ -1,0 +1,39 @@
+{%load thumbnail%}
+<table id="images">
+{%for image_row in images%}
+<tr>{%for image in image_row%}
+    {%if image.src%}
+    <td class="image">
+    <a class="use-image image-detail" href="{{image.href}}">
+        <img src="{%thumbnail image.src 150x150 crop upscale%}" width="150" height="150" alt="{{image.caption}}">
+        {%include 'media_browser/image_info_dict.html'%}   
+    </a>
+    <br/>{{image.title}}<br/>
+    <a class="use-image" href="{{image.href}}">Use</a> | <a href="{%url media_browser:image_options image.id%}">Resize or Crop</a>
+    </td>
+    {%endif%}
+{%endfor%}<tr>    
+{%empty%}<tr><td class="image empty">No images found.</td></tr>
+{%endfor%}
+</table>
+<script src="{{MEDIA_URL}}scripts/jquery.qtip.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(".use-image").click(function(evt) {
+    evt.preventDefault();
+    $.get($(this).attr("href"), {}, insert_image_callback);
+});
+// Image Selector:
+var insert_image_callback = function(data, status) {
+    window.parent.add_image(data);
+}
+
+$(".image-detail").each(function() {
+    var img = $(this);
+    img.qtip({
+        content: img.find("dl").html(),
+        show: 'mouseover',
+        hide: 'mouseout',
+    });
+    console.log(img);
+});
+</script>

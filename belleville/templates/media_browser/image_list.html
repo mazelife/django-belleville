@@ -1,0 +1,28 @@
+{%extends 'media_browser/base.html'%}
+{%block title%}Image Browser{%endblock%}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+     Image Browser
+</div>
+{% endblock %}
+{%block browser%}
+<h2>Image browser</h2>
+<ul class="object-tools">
+    <li>
+        <a class="viewsitelink" href="{%url media_browser:image_search%}">Find image</a>            
+    </li>
+    <li>
+        <a class="addlink" href="{%url admin:media_browser_image_add%}">Add image</a>
+    </li>    
+</ul>
+<script type="text/javascript">
+// Open tab to add new image:  
+$(".object-tools .addlink").click(function (evt) {
+    evt.preventDefault();
+    window.parent.add_image(null);
+    var newWindow = window.open($(this).attr('href'), '_blank');
+    newWindow.focus();
+});
+</script>
+{% include 'media_browser/image_grid.html'%}
+{% endblock %}
