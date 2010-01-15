@@ -1,0 +1,30 @@
+{%extends "media_browser/admin/base.html"%}
+{%block title%}Resize '{{image.title}}'{%endblock%}
+{%block breadcrumbs%}
+<div class="breadcrumbs"> 
+   <a href="{%url media_browser_admin:image_list%}">Image Browser</a>
+   &rsaquo;
+   Template Options for Image: "{{image.title}}"
+</div>
+{% endblock %}
+{% block browser %}
+<h2>Temlate <em>{{image.title}}</em>{%if image.resized%} <span>(shown smaller than actual size)</span>{%endif%}</h2>
+{%if image.resized%}<a href="{{preview.src}}" title="View full size" targe="_blank">{%endif%}
+<div id="image-preview">
+<img src="{{preview.src}}" width="{{preview.width}}" height="{{preview.height}}" alt="{{preview.alt}}" />
+</div>
+{%if preview.resized%}</a>{%endif%}
+<div class="info-block">
+    <h3>Info</h3>
+    {%include 'media_browser/admin/image_info_dict.html'%}
+    <form id="template">
+        <h4>Options</h4>
+        {{form.as_p}}
+        <input type="hidden" name="image_id" value="{{image.id}}">
+        <button>Use</button>
+    </form>
+</div>
+<script type="text/javascript">
+MediaBrowser.Template().init("{{image.get_absolute_url}}");
+</script>
+{% endblock %}

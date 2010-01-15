@@ -1,4 +1,4 @@
-{%extends 'media_browser/base.html'%}
+{%extends 'media_browser/admin/base.html'%}
 {%block title%}Image Browser{%endblock%}
 {% block breadcrumbs %}
 <div class="breadcrumbs">
@@ -9,7 +9,7 @@
 <h2>Image browser</h2>
 <ul class="object-tools">
     <li>
-        <a class="viewsitelink" href="{%url media_browser:image_search%}">Find image</a>            
+        <a class="viewsitelink" href="{%url media_browser_admin:image_search%}">Find image</a>            
     </li>
     <li>
         <a class="addlink" href="{%url admin:media_browser_image_add%}">Add image</a>
@@ -24,5 +24,5 @@ $(".object-tools .addlink").click(function (evt) {
     newWindow.focus();
 });
 </script>
-{% include 'media_browser/image_grid.html'%}
+{% include 'media_browser/admin/image_grid.html'%}
 {% endblock %}

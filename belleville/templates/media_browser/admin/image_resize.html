@@ -1,0 +1,41 @@
+{%extends "media_browser/admin/base.html"%}
+{%block title%}Resize '{{image.title}}'{%endblock%}
+{%block breadcrumbs%}
+<div class="breadcrumbs"> 
+   <a href="{%url media_browser_admin:image_list%}">Image Browser</a>
+   &rsaquo;
+   Resize Options for Image: "{{image.title}}"
+</div>
+{% endblock %}
+{% block browser %}
+<h2>Resize <em>{{image.title}}</em>{%if image.resized%} <span>(shown smaller than actual size)</span>{%endif%}</h2>
+{%if image.resized%}<a href="{{image.src}}" title="View full size" targe="_blank">{%endif%}
+<div id="image-preview">
+<img src="{{image.src}}" width="{{image.width}}" height="{{image.height}}" alt="{{image.alt}}" />
+</div>
+{%if image.resized%}</a>{%endif%}
+<div class="info-block">
+    <h3>Info</h3>
+    {%include 'media_browser/admin/image_info_dict.html'%}
+    <form id="resize">
+        <label>Select a dimension to use:&nbsp;
+            <select id="crop-options">
+                <option selected="true" value="default">Original size</option>
+                {%for dim in dimensions%}
+                <option value="{%url media_browser:crop image.id dim.pk%}">{{dim}}</option>
+                {%endfor%}
+            </select><br/><br/>
+        </label>
+        <label>Template Image: <input type="checkbox" id="show_template_fields"></label><br><br>
+        <fieldset><legend>Templating Options</legend>
+        {% for field in form %}
+            <label>{{field.label}}&nbsp;{{field}}</label>
+        {% endfor %}
+        </fieldset>
+        <button>Use Selected Dimension</button>
+    </form>
+</div>
+<script type="text/javascript">
+MediaBrowser.Resize.init("{{image.url}}");
+</script>
+{% endblock %}
