@@ -1,0 +1,15 @@
+{%spaceless%}
+{%load thumbnail%}
+{%ifnotequal template.position 'inline'%}
+<div class="image-container" 
+    class="{{template.display}}" 
+    style="
+    {%ifequal template.position 'float'%}float: {{template.display}}; width: {{width}}px;
+    {%else%}text-align: center;
+    {%endifequal%}">
+{%endifnotequal%}
+<img src="{{src}}" title="{{title}}" alt="{{caption}}"/>
+{%if template.show_caption%}<p class="caption">{{caption}}</p>{%endif%}
+{%if template.show_credit%}<p class="credit">{{credit}}</p>{%endif%}
+{%ifnotequal template.position 'inline'%}</div>{%endifnotequal%}
+{%endspaceless%}
