@@ -8,7 +8,11 @@
     {%else%}text-align: center;
     {%endifequal%}">
 {%endifnotequal%}
-<img src="{%thumbnail image size crop upscale%}" title="{{title}}"/>
+{%if template.action%}
+<a href="{{full_image_url}}" {%ifequal template.action 'tab'%} target="_blank"{%endifequal%}{%ifequal template.action 'lightbox'%} rel="lightbox"{%endifequal%} >
+{%endif%}    
+<img src="{%thumbnail src size crop upscale%}" title="{{title}}"/>
+{%if template.action%}</a>{%endif%}
 {%if template.show_caption%}<p class="caption">{{caption}}</p>{%endif%}
 {%if template.show_credit%}<p class="credit">{{credit}}</p>{%endif%}
 {%ifnotequal template.position 'inline'%}</div>{%endifnotequal%}

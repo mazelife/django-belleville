@@ -22,7 +22,7 @@
             <select id="crop-options">
                 <option selected="true" value="default">Original size</option>
                 {%for dim in dimensions%}
-                <option value="{%url media_browser:crop image.id dim.pk%}">{{dim}}</option>
+                <option value="{%url media_browser:resized_image image.id dim.pk%}">{{dim}}</option>
                 {%endfor%}
             </select><br/><br/>
         </label>

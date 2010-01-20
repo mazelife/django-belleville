@@ -1,3 +1,4 @@
+<p>Click an image to insert it directly into the editor. To control how it is displayed and positioned in the editor, select "Template". To crop or resize, select "Resize".</p>
 {%load thumbnail%}
 <table id="images">
 {%for image_row in images%}
@@ -8,9 +9,9 @@
         <img src="{%thumbnail image.src 150x150 crop upscale%}" width="150" height="150" alt="{{image.caption}}">
         {%include 'media_browser/admin/image_info_dict.html'%}   
     </a>
-    <br/>{{image.title}}<br/>
-    <a class="" href="{%url media_browser_admin:image_template image.id%}">Template</a> | 
-    <a href="{%url media_browser_admin:image_resize image.id%}">Resize or Crop</a>
+    <br/><strong>{{image.title}}</strong><br/>
+    Options: <a class="" href="{%url media_browser_admin:image_template image.id%}">Template</a> | 
+    <a href="{%url media_browser_admin:image_resize image.id%}">Resize</a>
     </td>
     {%endif%}
 {%endfor%}<tr>    
