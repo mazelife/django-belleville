@@ -1,0 +1,26 @@
+{%extends "base.html" %}
+{%block title%}Projects{%endblock%}
+{%block head%}
+<link rel="stylesheet" href="{{MEDIA_URL}}styles/projects.css" type="text/css" media="all">
+{%endblock%}    
+{%block body%}
+<div id="primary" class="tumblelog_entries">
+    {%for project in project_list%}
+    <div class="entry">
+        <h2><a href="{{project.get_absolute_url}}">{{project.title}}</a></h2>
+        <div class="body">
+        <h3 class="project-link"><a href="{{project.url}}">{{project.url}}</a></h3>
+        {{project.summary|safe}}
+        </div>
+        {%if project.description%}
+        <a class="read-more" href="{{project.get_absolute_url}}">read more&raquo;</a>
+        {%endif%}
+    </div>
+    {%empty%}
+    <h2>No projects.</h2>
+    {%endfor%}
+</div>
+<div id="secondary">
+    
+</div>
+{%endblock%}

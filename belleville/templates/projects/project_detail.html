@@ -1,0 +1,26 @@
+{%extends "base.html" %}
+{%block title%}{{project.title}}{%endblock%}
+{%block head%}
+<link rel="stylesheet" href="{{MEDIA_URL}}styles/projects.css" type="text/css" media="all">
+{%endblock%}    
+{%block body%}
+<div id="primary" class="tumblelog_entries">
+    <div class="entry">
+        <h2><a href="{{project.get_absolute_url}}">{{project.title}}</a></h2>
+        <div class="body">
+        <h3 class="project-link"><a href="{{project.url}}">{{project.url}}</a></h3>
+        {{project.description|safe}}
+        </div>
+        <div class="meta">
+            {%with project.tags as tags%}
+            {%if tags%}
+            <div class="tags">Tagged with: {%for tag in tags%}<a href="{%url tag_detail tag.name%}" rel="tag">{{tag.name}}</a>{%if not forloop.last%}, {%endif%}{%endfor%}.</div>
+            {%endif%}
+            {%endwith%}
+        </div>
+    </div>
+</div>
+<div id="secondary">
+    
+</div>
+{%endblock%}
