@@ -1,0 +1,14 @@
+body {
+    background-color: #494949;
+    background-image: none;
+}
+
+body #primary { padding-top: 220px; }
+
+body #breadcrumb { color: #f2f2f2 }
+body #breadcrumb a { color: #a1c6d4; }
+
+.project-link {
+    margin: 10px 0;
+    font-weight: bold;
+}
