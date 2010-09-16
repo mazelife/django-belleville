@@ -60,7 +60,7 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',    
+#    'django.middleware.csrf.CsrfViewMiddleware',    
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
@@ -97,6 +97,7 @@ INSTALLED_APPS = (
     # Third party apps:
     #'south',
     'tagging',
+    'projects',
     'pierre.site_search'
 )
 
@@ -109,7 +110,8 @@ MAX_TAG_LENGTH = 100
 MAIN_NAV_REGISTRY = {
     'blogging.tumblelog_views': 'tumblelog',
     'blogging.blog_views': 'blog',
-    'authors.views': 'about'
+    'authors.views': 'about',
+    'projects.views': 'projects'
 }
 
 try:
