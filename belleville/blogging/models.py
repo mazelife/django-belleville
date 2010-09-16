@@ -159,7 +159,6 @@ class BlogEntry(models.Model):
         
     @property
     def comments_enabled(self):
-        #import pdb; pdb.set_trace()
         if not self.allow_comments:
             return False
         delta = datetime.now() - self.pub_date
