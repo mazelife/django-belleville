@@ -166,6 +166,8 @@ h2.section_title { display: none; }
 
 #next-blog-page,
 #next-tumblelog-page { font-size: 1.4em; }
+
+.read-more { display: block; text-align: right; font-size: 1.2em;}
 /************************
 /* Blog Entry */
 /***********************/
@@ -370,7 +372,7 @@ h2.section_title { display: none; }
 #search-box {
     border: 0px;
     padding: 2px 4px;
-    left: 814px;
+    left: 263px;
     position: absolute; 
     top: 17px;
 }
