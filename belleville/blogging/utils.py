@@ -49,12 +49,15 @@ def get_cached_blog_entry_headline(
     cache_key = "blog_entry_%s_%s" % (pub_date, slug)
     name = cache.get(cache_key)
     if not name:
-        entry = BlogEntry.objects.get(
-            pub_date__year=year,
-            pub_date__month=month,
-            pub_date__day=day,
-            slug=slug
-        )
+        try:
+            entry = BlogEntry.objects.get(
+                pub_date__year=year,
+                pub_date__month=month,
+                pub_date__day=day,
+                slug=slug
+            )
+        except BlogEntry.DoesNotExist:
+            return ""
         cache.set(cache_key, entry.headline, SPEEDY_LOOKUP_TTL)
         name = cache.get(cache_key)
         if not name:
