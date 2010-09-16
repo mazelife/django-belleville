@@ -1,0 +1,64 @@
+[
+    {
+        "pk": 3, 
+        "model": "projects.project", 
+        "fields": {
+            "status": "published", 
+            "description": "<p>\r\n\tTest 2</p>\r\n", 
+            "author": 3, 
+            "url": "", 
+            "title": "Test 2", 
+            "summary": "<p>\r\n\tTest 2</p>\r\n", 
+            "start_date": "2010-08-24 10:13:09", 
+            "slug": "test2"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "projects.project", 
+        "fields": {
+            "status": "published", 
+            "description": "<p>\r\n\tTest</p>\r\n", 
+            "author": 2, 
+            "url": "", 
+            "title": "Test", 
+            "summary": "<p>\r\n\tTest</p>\r\n", 
+            "start_date": "2010-08-24 10:12:41", 
+            "slug": "test"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "projects.project", 
+        "fields": {
+            "status": "draft", 
+            "description": "<p>\r\n\tTest 3</p>\r\n", 
+            "author": 2, 
+            "url": "", 
+            "title": "Test", 
+            "summary": "<p>\r\n\tTest 3</p>\r\n", 
+            "start_date": "2010-08-24 10:12:41", 
+            "slug": "test3"
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "authors.author", 
+        "fields": {
+            "bio": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet dolor non velit ornare pharetra. Fusce tristique, dui in viverra interdum, est nibh feugiat metus, id vehicula tortor tortor et risus. Proin varius justo vehicula dui sollicitudin eget facilisis magna semper. Pellentesque et nunc nunc, quis rhoncus enim. Fusce blandit eros at nisl commodo sollicitudin blandit mauris pulvinar. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi euismod vulputate mauris ut tincidunt. Quisque neque odio, aliquet malesuada volutpat non, condimentum quis nisl. Curabitur laoreet lacus velit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris posuere ante at tellus iaculis tempus. Nulla sit amet quam odio, non vulputate magna. Donec convallis augue quis lacus condimentum sollicitudin. Aliquam eu risus nec sem eleifend ultricies at vitae quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam euismod nisi in libero congue tristique. </p>", 
+            "photo": "", 
+            "user": 2, 
+            "slug": "django-reinhardt"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "authors.author", 
+        "fields": {
+            "bio": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet dolor non velit ornare pharetra. Fusce tristique, dui in viverra interdum, est nibh feugiat metus, id vehicula tortor tortor et risus. Proin varius justo vehicula dui sollicitudin eget facilisis magna semper. Pellentesque et nunc nunc, quis rhoncus enim. Fusce blandit eros at nisl commodo sollicitudin blandit mauris pulvinar. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi euismod vulputate mauris ut tincidunt. Quisque neque odio, aliquet malesuada volutpat non, condimentum quis nisl. Curabitur laoreet lacus velit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris posuere ante at tellus iaculis tempus. Nulla sit amet quam odio, non vulputate magna. Donec convallis augue quis lacus condimentum sollicitudin. Aliquam eu risus nec sem eleifend ultricies at vitae quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam euismod nisi in libero congue tristique. </p>", 
+            "photo": "", 
+            "user": 3, 
+            "slug": "dave-holland"
+        }
+    }
+]
