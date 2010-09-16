@@ -4,7 +4,7 @@
 {% block primary %}
   {% load comments %}
   <div class="comments full preview">
-  <form action="{% comment_form_target %}" method="post">{% csrf_token %}
+  <form action="{% comment_form_target %}" method="post">
     {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
 {% if form.errors %}
     <h1 class="error">{% blocktrans count form.errors|length as counter %}Please correct the error below{% plural %}Please correct the errors below{% endblocktrans %}</h1>

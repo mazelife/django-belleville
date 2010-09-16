@@ -25,7 +25,7 @@
                 <li class="nav_blog{%ifequal active_main_nav 'blog'%} active{%endifequal%}"><a href="{%url blog:entry_list%}">Blog</a></li>
                 <li class="nav_tumblelog{%ifequal active_main_nav 'tumblelog'%} active{%endifequal%}"><a href="{%url tumblelog:list%}">Tumblelog</a></li>
                 <li class="nav_about{%ifequal active_main_nav 'about'%} active{%endifequal%}"><a href="{%url authors:detail slug='james-stevenson'%}">About</a></li>
-                <li class="nav_projects"><a href="#">Projects</a></li>
+                <li class="nav_projects{%ifequal active_main_nav 'projects'%} active{%endifequal%}"><a href="{%url projects:list%}">Projects</a></li>
             </ul> <!--/ #globalNav -->
         </div> <!--/ #header -->
         <h2 id="logo"><a href="{%url index%}">{{site_preferences.site_title}}</a></h2>

@@ -17,7 +17,9 @@
     <div class="body" id="below-fold">
     {{entry.body|safe}}
     </div>
+    {%else%}{%if entry.body%}<a class="read-more">read more &raquo;</a>{%endif%}
     {%endif%}
+    
     <div class="meta">
     {%include 'blogging/tag_list.html'%}
     {%include 'blogging/comments.html'%}

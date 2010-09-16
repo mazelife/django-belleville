@@ -11,7 +11,7 @@
     {% get_comment_list for entry as comment_list %}{% get_comment_form for entry as comment_form %}
     <h4 id="comments">Leave a comment:</h4>
 {%if entry.comments_enabled%}
-    <form action="{% comment_form_target %}" method="post">{% csrf_token %}
+    <form action="{% comment_form_target %}" method="post">
     {% for field in comment_form %}
         {%if field.is_hidden%}{{field}}{%else%}
         <label id="{{field.html_name}}" class="{%ifequal field.html_name 'comment'%} multilinex6{%endifequal%} unitx4">{{field.label}}:&nbsp;{{field}}</label>{%if field.errors%}<span class="errors">{{field.errors}}<span>{%endif%}
